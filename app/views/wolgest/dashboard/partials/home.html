@@ -1,74 +1,74 @@
  <toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'position-class': 'toast-top-center'}"></toaster-container>
-<div class="col-md-12 col-sm-12 col-xs-12">
+ <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
         <h2>Meu Cadastro</h2>
 
         <div class="clearfix"></div>
-      </div>
-      <div class="x_content">
+    </div>
+    <div class="x_content">
         <br>
         <form name="form" ng-submit="submitForm(form.$valid)" novalidate class="form-horizontal form-label-left ng-pristine ng-valid">
-
-          <div class="form-group" ng-class="{ 'has-error' : form.nome.$invalid && !form.nome.$pristine && submitted}">
+            
+          <div class="form-group" ng-class="{ 'has-error' : form.nome.$invalid && !form.nome.$pristine || !form.nome.$valid && submitted}">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" >Nome <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <input type="text" name="nome" ng-model="user.func_nome" required class="form-control col-md-7 col-xs-12">
-              <p ng-show="form.nome.$invalid && !form.nome.$pristine && submitted" class="help-block">O nome é obrigatório.</p>
-            </div>
+              <p ng-show="form.nome.$invalid && !form.nome.$pristine || !form.nome.$valid && submitted" class="help-block">O nome é obrigatório.</p>
           </div>
-          <div class="form-group" ng-class="{ 'has-error' : form.departamento.$invalid && !form.departamento.$pristine && submitted}">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Departamento <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="text" required ng-model="user.func_departamento" name="departamento" class="form-control col-md-7 col-xs-12">
-              <p ng-show="form.departamento.$invalid && !form.departamento.$pristine && submitted" class="help-block">O departamento é obrigatório.</p>
-            </div>
-          </div>
-           <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && !form.email.$pristine && submitted}">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">E-Mail</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input name="email" ng-model="user.func_email" required class="form-control col-md-7 col-xs-12" type="text">
-               <p ng-show="form.email.$invalid && !form.email.$pristine && submitted" class="help-block">O e-mail é obrigatório.</p>
-            </div>
-          </div>
-
-          <div class="form-group" ng-class="{ 'has-error' : form.login.$invalid && !form.login.$pristine && submitted}">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" >Login <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input name="login" type="text" ng-model="user.func_login" required  class="form-control col-md-7 col-xs-12">
-              <p ng-show="form.login.$invalid && !form.login.$pristine && submitted" class="help-block">O login é obrigatório.</p>
-            </div>
-          </div>
-
-           <div class="form-group" ng-class="{ 'has-error' : form.senha.$invalid && !form.senha.$dirty && submitted}">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" >Senha <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input name="senha" type="password" ng-model="user.func_senha" required class="form-control col-md-7 col-xs-12">
-              <p ng-show="form.senha.$invalid && !form.senha.$dirty && submitted" class="help-block">A senha é obrigatória.</p>
-            </div>
-          </div>
-
-          <div class="form-group" ng-class="{ 'has-error' : form.senha2.$invalid && !form.senha2.$dirty && submitted}">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar senha <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input name="senha2" required ng-model="user.func_senha2" class="form-control col-md-7 col-xs-12"  type="password">
-              <p ng-show="form.senha2.$invalid && !form.senha2.$dirty && submitted" class="help-block">Repita a senha.</p>
-            </div>
-          </div>
-
-          <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-              <button type="submit" class="btn btn-success pull-right">Enviar</button>
-            </div>
-          </div>
-
-        </form>
       </div>
-    </div>
+      <div class="form-group" ng-class="{ 'has-error' : form.departamento.$invalid && !form.departamento.$pristine || !form.departamento.$valid && submitted}">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Departamento <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="text" required ng-model="user.func_departamento" name="departamento" class="form-control col-md-7 col-xs-12">
+          <p ng-show="form.departamento.$invalid && !form.departamento.$pristine || !form.departamento.$valid && submitted" class="help-block">O departamento é obrigatório.</p>
+      </div>
   </div>
+  <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && !form.email.$pristine || !form.email.$valid && submitted}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">E-Mail</label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <input name="email" ng-model="user.func_email" required class="form-control col-md-7 col-xs-12" type="text">
+      <p ng-show="form.email.$invalid && !form.email.$pristine || !form.email.$valid && submitted" class="help-block">O e-mail é obrigatório.</p>
+  </div>
+</div>
+
+<div class="form-group" ng-class="{ 'has-error' : form.login.$invalid && !form.login.$pristine || !form.login.$valid && submitted}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Login <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <input name="login" type="text" ng-model="user.func_login" required  class="form-control col-md-7 col-xs-12">
+      <p ng-show="form.login.$invalid && !form.login.$pristine || !form.login.$valid && submitted" class="help-block">O login é obrigatório.</p>
+  </div>
+</div>
+
+<div class="form-group" ng-class="{ 'has-error' : form.senha.$invalid && !form.senha.$dirty && submitted}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Senha <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <input name="senha" type="password" ng-model="user.func_senha" required class="form-control col-md-7 col-xs-12">
+      <p ng-show="form.senha.$invalid && !form.senha.$dirty && submitted" class="help-block">A senha é obrigatória.</p>
+  </div>
+</div>
+
+<div class="form-group" ng-class="{ 'has-error' : form.senha2.$invalid && !form.senha2.$dirty && submitted}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar senha <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <input name="senha2" required ng-model="user.func_senha2" class="form-control col-md-7 col-xs-12"  type="password">
+      <p ng-show="form.senha2.$invalid && !form.senha2.$dirty && submitted" class="help-block">Repita a senha.</p>
+  </div>
+</div>
+
+<div class="ln_solid"></div>
+<div class="form-group">
+    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+      <button type="submit" class="btn btn-success pull-right">Enviar</button>
+  </div>
+</div>
+
+</form>
+</div>
+</div>
+</div>

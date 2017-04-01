@@ -8,13 +8,26 @@ class AdminController extends BaseController {
 
 	}
 
-	public function getUserInfo(){
+	/*
+	*********************************************************************
+	**************** METODOS REFERENTE A USUARIO ************************
+	*********************************************************************
+	*/
 
-		$id = Auth::id();
-		$user = User::find($id);
+	//Método que faz a busca do usuário logado
+	public function getUserInfo($id){
+		if($id == 0){
+			$id = Auth::id();
+			$user = User::find($id);
+		}
+		else{
+			$user = User::find($id);
+		}
+		
 		return Response::json(array('user' => $user));
 	}
 
+	//Metodo que cria e atualiza um usuário. Se vier com o campo id, atualiza, senao cria um novo
 	public function postUsuario(){
 
 		if(Input::has('func_id')){
@@ -23,9 +36,14 @@ class AdminController extends BaseController {
 			$mensagem = "Usuário alterado com sucesso!";
 		}
 		else{
+			$result = $this->verificaLogin(Input::get('func_login'));
+			if($result){
+				return Response::json(array('sucesso' => false, 'mensagem' => 'Já existe um usuário cadastrado com esse login.'));
+			}
 			$user = new User();
 			$mensagem = 'Usuário criado com sucesso!';
 		}
+		
 		$user->func_login = Input::get('func_login');
 		$user->func_senha = Hash::make(Input::get('func_senha'));
 		$user->func_departamento = Input::get('func_departamento');
@@ -39,6 +57,33 @@ class AdminController extends BaseController {
 		catch(\Exception $e){
 			return Response::json(array('sucesso' => false, 'mensagem' => 'Ocorreu um erro ao salvar: ' . $e->getMessage()));
 		}
+	}
+
+	// Método que pega todos os usuários, exceto o que está logado
+	public function getTodosUsuarios(){
+		$user = User::where('func_id', '<>', Auth::id())->get();
+		return Response::json(array('user' => $user));
+	}
+
+	// Método que verifica se já existe o login na hora de cadastrar um novo usuário
+	private function verificaLogin($login){
+		$result = DB::table('funcionario')->where('func_login', $login)->pluck('func_login');
+		return $result;
+	}
+
+
+	/*
+	*********************************************************************
+	**************** METODOS REFERENTE A PERMISSÕES *********************
+	*********************************************************************
+	*/
+
+	public function postPermissao(){
+
+	}
+
+	public function getMontaMenuPermissoes(){
+		
 	}
 
 	public function getArtigo($id = null){

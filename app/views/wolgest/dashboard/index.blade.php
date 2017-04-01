@@ -44,6 +44,7 @@
 
 					<br />
 
+					<div>
 					<!-- sidebar menu -->
 					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
@@ -51,16 +52,16 @@
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-home" aria-hidden="true"></i> Meu Cadastro <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a ui-sref="dash">Atualizar</a></li>
+										<li><a ui-sref="usuario({param: '0', usuario: '0'})">Atualizar</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-sitemap"></i> Funcionários <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a>Cadastro<span class="fa fa-chevron-down"></span></a>
 												<ul class="nav child_menu">
-													<li><a href="#level2_1">Cadastrar</a>
+													<li><a ui-sref="usuario({param: '1'})">Cadastrar</a>
 													</li>
-													<li><a href="#level2_2">Procurar</a>
+													<li><a ui-sref="usuario({param: '2'})">Procurar</a>
 													</li>
 												</ul>
 											</li>
@@ -152,6 +153,7 @@
 								</ul>
 							</div>
 
+						</div>
 						</div>
 						<!-- /sidebar menu -->
 
@@ -278,7 +280,7 @@
 				<!-- footer content -->
 				<footer>
 					<div class="pull-right">
-						Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+						www.bonfattiadvogados.com.br
 					</div>
 					<div class="clearfix"></div>
 				</footer>

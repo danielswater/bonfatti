@@ -1,0 +1,52 @@
+
+ <div class="col-md-12 col-sm-12 col-xs-12">
+ 	<div class="x_panel">
+ 		<div class="x_title">
+ 			<h2>Buscar Usuário</h2>
+
+ 			<div class="clearfix"></div>
+ 		</div>
+ 		<div class="x_content">
+ 			<br>
+
+ 			<div class="col-md-12">
+ 				<form class="form-horizontal form-label-left">
+ 					<div class="form-group" >
+ 						<label class="control-label col-md-3 col-sm-3 col-xs-12">Selecione um usuário:</label>
+ 						<div class="col-md-6">
+ 							<select class="form-control" ng-options="item as item.func_nome for item in items track by item.func_id" ng-change="selecionaUsuario(user.func_id)" ng-model="user">
+ 								<option value="">---Selecione---</option>
+ 							</select>
+ 						</div>
+ 					</div>
+
+ 					<div class="form-group" >
+ 						<label class="control-label col-md-3 col-sm-3 col-xs-12">ou:</label>
+ 						<div class="col-md-6 col-sm-6 col-xs-12">
+ 							<button class="btn btn-success" ng-click="selecionaUsuario()" type="button">Mostrar todos</button>
+ 						</div>
+ 					</div>
+ 				</form>
+ 			</div>
+
+ 			<div class="col-md-12" ng-show="tabelaUsuarios.length">
+ 				<table class="table table-bordered table-striped">
+ 					<thead>
+ 						<tr>
+ 							<th>Nome</th>
+ 							<th>Departamento</th>
+ 							<th>Excluir</th>
+ 						</tr>
+ 					</thead>
+ 					<tbody>
+ 						<tr ng-repeat="user in tabelaUsuarios">
+ 							<td><a ui-sref="usuario({usuario: user.func_id, param: '0'})">{{user.func_nome}}</a></td>
+ 							<td><a ui-sref="usuario({usuario: user.func_id, param : '0'})">{{user.func_departamento}}</a></td>
+ 							<td>@mdo</td>
+ 						</tr>
+ 					</tbody>
+ 				</table>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div>
