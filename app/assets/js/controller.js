@@ -1,18 +1,14 @@
 var url = '/bonfatti/administrador/dashboard/';
 
-app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, $stateParams, UsuarioService){
+app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, $stateParams, UsuarioService, $rootScope){
 
 	$scope.user = {};
+	$scope.botao = true;
 
 	$scope.getUserInfo = function(id){
-		$scope.user = UsuarioService.getUserInfo(id);
-		console.log('scope usuario', $scope.user);
-	}
-
-	$scope.getTodosUsuarios = function(){
-		$http.get(url+'todos-usuarios').then(function(data){
-			$scope.items = data.data.user;
-		})
+		UsuarioService.getInfo(id).then(function(data){
+			$scope.user = data;
+		});
 	}
 
 	$scope.selecionaUsuario = function(id){
@@ -46,10 +42,19 @@ app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, 
 	};
 
 	if($stateParams.param == 0){
+		console.log('$stateParams', $stateParams);
 		$scope.getUserInfo($stateParams.usuario);
+		UsuarioService.usuarioPermissao().then(function(data){			
+			if(data.funcionario_cadastro[0].alterar == 0 && $stateParams.usuario != 0){
+				$scope.botao = false;
+			}
+		})
 	}
+
 	if($stateParams.param == 2){
-		$scope.getTodosUsuarios();
+		UsuarioService.getTodosUsuarios().then(function(data){
+			$scope.items = data;
+		});
 	}
 
 	// $scope.artigos = {};
@@ -87,8 +92,88 @@ app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, 
 	// $scope.listaArtigos();
 })
 
-app.controller('PermissaoController', function($scope, $http, UsuarioService){
+app.controller('NoticiaController', function($scope, $http){
 
+	$scope.titleOptions = {
+		placeholderText: 'Add a Title',
+		charCounterCount: false,
+		toolbarInline: true,
+		events: {
+			'froalaEditor.initialized': function() {
+				console.log('initialized');
+			}
+		}
+	};
+
+	$scope.initialize = function(initControls) {
+		$scope.initControls = initControls;
+		$scope.deleteAll = function() {
+			initControls.getEditor()('html.set', '');
+		};
+	};
+
+	$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
+	$scope.sample2Text = '';
+	$scope.sample3Text = '';
+
+	$scope.imgModel = {src: 'image.jpg'};
+
+	$scope.buttonModel = {innerHTML: 'Click Me'};
+
+	$scope.inputModel = {placeholder: 'I am an input!'};
+	$scope.inputOptions = {
+		angularIgnoreAttrs: ['class', 'ng-model', 'id', 'froala']
+	}
+
+	$scope.initializeLink = function(linkInitControls) {
+		$scope.linkInitControls = linkInitControls;
+	};
+
+	$scope.noticias = {};
+
+})
+
+app.controller('PermissaoController', function($scope, $http, UsuarioService, $rootScope, toaster){
+
+	$scope.permissao = {};
+
+	UsuarioService.getTodosUsuarios().then(function(data){
+		$scope.items = data;
+	});
+
+	$scope.getTabelaPermissao = function(id){
+		// $scope.permissao.id_usuario = id;
+		$http.get(url+'tabela-permissoes/'+id).then(function(data){
+			$scope.permissao.funcionario_cadastro = data.data.funcionario_cadastro[0];
+			$scope.permissao.funcionario_permissoes = data.data.funcionario_permissoes[0];
+			$scope.permissao.boletim = data.data.boletim[0];
+			$scope.permissao.links_uteis = data.data.links_uteis[0];
+			$scope.permissao.processos_identificacao = data.data.processos_identificacao[0];
+			$scope.permissao.processos_clientes = data.data.processos_clientes[0];
+			$scope.permissao.processos_ritos = data.data.processos_ritos[0];
+			$scope.permissao.processos_cadastros = data.data.processos_cadastros[0];
+			$scope.permissao.contatos = data.data.contatos[0];
+			$scope.permissao.compromissos = data.data.compromissos[0];
+			$scope.permissao.caixa = data.data.caixa[0];
+			$scope.permissao.biblioteca = data.data.biblioteca[0];
+			$scope.permissao.fale_conosco = data.data.fale_conosco[0];
+			$scope.permissao.curriculos = data.data.curriculos[0];
+			$scope.permissao.estatisticas = data.data.estatisticas[0];
+
+			console.log('$scope.permissao', $scope.permissao);
+		})
+	}
+
+	$scope.postPermissoes = function(id, update){
+		$http.post(url+'permissoes/'+id+'/'+update, $scope.permissao).then(function(data){
+			if(data.data.sucesso){
+				toaster.pop('success', "Sucesso", data.data.mensagem, 5000);
+			}
+			else{
+				toaster.pop('error', "Erro", data.data.mensagem, 5000);
+			}
+		})
+	}
 
 })
 
@@ -148,6 +233,6 @@ app.controller('PermissaoController', function($scope, $http, UsuarioService){
 // 		else{
 // 			$scope.uploader.flow.cancel();
 // 		}
-		
+
 // 	}
 // })

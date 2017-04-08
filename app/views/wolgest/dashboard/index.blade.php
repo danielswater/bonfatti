@@ -14,11 +14,26 @@
 	<!-- Font Awesome -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+	<!-- FROALA -->
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/froala_editor.min.css')}}" rel="stylesheet">
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/froala_style.min.css')}}" rel="stylesheet">
+	<!-- FIM DO FROALA -->
+
+	<!-- PLUGINS FROALA -->
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/plugins/colors.css')}}" rel="stylesheet">
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/plugins/emoticons.css')}}" rel="stylesheet">
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/plugins/file.css')}}" rel="stylesheet">
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/plugins/image_manager.css')}}" rel="stylesheet">
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/plugins/image.css')}}" rel="stylesheet">
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/plugins/table.css')}}" rel="stylesheet">
+	<link href="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/css/plugins/video.css')}}" rel="stylesheet">
+	<!-- FIM DOS PLUGINS -->
+
 	<link href="{{URL::to('app/assets/css/custom.min.css')}}" rel="stylesheet">
 	<link href="{{URL::to('app/assets/css/toaster.css')}}" rel="stylesheet">
 </head>
 
-<body ng-app="modulo" class="nav-md footer_fixed">
+<body ng-app="modulo" class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<div class="col-md-3 left_col">
@@ -55,36 +70,29 @@
 										<li><a ui-sref="usuario({param: '0', usuario: '0'})">Atualizar</a></li>
 									</ul>
 								</li>
-								<li><a><i class="fa fa-sitemap"></i> Funcionários <span class="fa fa-chevron-down"></span></a>
+								<li ><a><i class="fa fa-sitemap"></i> Funcionários <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a>Cadastro<span class="fa fa-chevron-down"></span></a>
+										<li ng-hide="permissao.funcionario_cadastro.incluir == 0 && permissao.funcionario_cadastro.localizar == 0"><a>Cadastro<span class="fa fa-chevron-down"></span></a>
 												<ul class="nav child_menu">
-													<li><a ui-sref="usuario({param: '1'})">Cadastrar</a>
+													<li ng-hide="permissao.funcionario_cadastro.incluir == 0"><a ui-sref="usuario({param: '1'})">Cadastrar</a>
 													</li>
-													<li><a ui-sref="usuario({param: '2'})">Procurar</a>
+													<li ng-hide="permissao.funcionario_cadastro.localizar == 0"><a ui-sref="usuario({param: '2'})">Procurar</a>
 													</li>
 												</ul>
 											</li>
-											<li><a>Permissões<span class="fa fa-chevron-down"></span></a>
+											<li ng-hide="permissao.funcionario_permissoes.localizar == 0"><a>Permissões<span class="fa fa-chevron-down"></span></a>
 												<ul class="nav child_menu">
-													<li class="sub_menu"><a href="level2.html">Procurar</a>
+													<li class="sub_menu"><a ui-sref="permissao">Procurar</a>
 													</li>
 													
-												</ul>
-											</li>
-										</ul>
-									</li> 
-								<li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+											</ul>
+										</li>
+									</ul>
+								</li> 
+								<li><a><i class="fa fa-desktop"></i> Boletins <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">General Elements</a></li>
-										<li><a href="media_gallery.html">Media Gallery</a></li>
-										<li><a href="typography.html">Typography</a></li>
-										<li><a href="icons.html">Icons</a></li>
-										<li><a href="glyphicons.html">Glyphicons</a></li>
-										<li><a href="widgets.html">Widgets</a></li>
-										<li><a href="invoice.html">Invoice</a></li>
-										<li><a href="inbox.html">Inbox</a></li>
-										<li><a href="calendar.html">Calendar</a></li>
+										<li><a ui-sref="noticia">Cadastrar</a></li>
+										<li><a href="general_elements.html">Procurar</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
@@ -158,7 +166,7 @@
 						<!-- /sidebar menu -->
 
 						<!-- /menu footer buttons -->
-						<div class="sidebar-footer hidden-small">
+						<!-- <div class="sidebar-footer hidden-small">
 							<a data-toggle="tooltip" data-placement="top" title="Settings">
 								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 							</a>
@@ -171,7 +179,7 @@
 							<a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
 								<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 							</a>
-						</div>
+						</div> -->
 						<!-- /menu footer buttons -->
 					</div>
 				</div>
@@ -302,14 +310,37 @@
 		<script src="{{URL::to('app/assets/bootstrap/js/bootstrap-progressbar.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/icheck.js')}}"></script>
 		<script src="{{URL::to('app/assets/angular/ngstorage.js')}}"></script>
-		
-		<script src="{{URL::to('app/assets/ckeditor/ckeditor.js')}}"></script>
-		<script src="{{URL::to('app/assets/angular/angular-ckeditor.js')}}"></script>
-		<script src="{{URL::to('app/assets/angular/toaster.js')}}"></script>
+
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/froala_editor.min.js')}}"></script>
+
+		<!-- FROALA PLUGINS -->
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/colors.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/emoticons.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/entities.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/file.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/fullscreen.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/image.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/image_manager.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/inline_style.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/line_breaker.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/link.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/lists.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/paragraph_style.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/save.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/table.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/video.min.js')}}"></script>
+
+		<!-- FIM DOS PLUGINS -->
 		
 		<script src="{{URL::to('app/assets/js/app.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/controller.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/custom.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/toaster.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/angular-froala.js')}}"></script>
 
 		<!-- Google Analytics -->
 		<script>

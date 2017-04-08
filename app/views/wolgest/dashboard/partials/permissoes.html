@@ -1,4 +1,4 @@
-
+ <toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'position-class': 'toast-top-center'}"></toaster-container>
  <div class="col-md-12 col-sm-12 col-xs-12">
  	<div class="x_panel">
  		<div class="x_title">
@@ -9,43 +9,208 @@
  		<div class="x_content">
  			<br>
 
- 			<div class="col-md-12">
+ 			<div class="col-md-12 col-sm-12 col-xs-12">
  				<form class="form-horizontal form-label-left">
  					<div class="form-group" >
  						<label class="control-label col-md-3 col-sm-3 col-xs-12">Selecione um usuário:</label>
  						<div class="col-md-6">
- 							<select class="form-control" ng-options="item as item.func_nome for item in items track by item.func_id" ng-change="selecionaUsuario(user.func_id)" ng-model="user">
+ 							<select class="form-control" ng-options="item as item.func_nome for item in items track by item.func_id" ng-change="getTabelaPermissao(user.func_id)" ng-model="user">
  								<option value="">---Selecione---</option>
  							</select>
  						</div>
  					</div>
 
- 					<div class="form-group" >
- 						<label class="control-label col-md-3 col-sm-3 col-xs-12">ou:</label>
- 						<div class="col-md-6 col-sm-6 col-xs-12">
- 							<button class="btn btn-success" ng-click="selecionaUsuario()" type="button">Mostrar todos</button>
- 						</div>
- 					</div>
  				</form>
  			</div>
 
- 			<div class="col-md-12" ng-show="tabelaUsuarios.length">
+ 			<div class="col-md-12 col-sm-12 col-xs-12 table-responsive" style="margin-top: 20px;" ng-show="user.func_id">
+ 			<div class="alert alert-success ">Para atribuir permissões a este usuário, selecione as opções abaixo e clique em "Atualizar".</div>
+ 			<p><strong>Funcionário:</strong>  {{user.func_nome}}</p>
+ 			<!-- <div class="pull-right"><button class="btn btn-default" ng-click="checkAll()">Selecionar tudo</button></div> -->
  				<table class="table table-bordered table-striped">
  					<thead>
  						<tr>
- 							<th>Nome</th>
- 							<th>Departamento</th>
+ 							<th>Canal</th>
  							<th>Excluir</th>
+ 							<th>Alterar</th>
+ 							<th>Incluir</th>
+ 							<th>Localizar</th>
+ 							<th>Exportar</th>
+ 							<th>Importar</th>
  						</tr>
  					</thead>
  					<tbody>
- 						<tr ng-repeat="user in tabelaUsuarios">
- 							<td><a ui-sref="usuario({usuario: user.func_id, param: '0'})">{{user.func_nome}}</a></td>
- 							<td><a ui-sref="usuario({usuario: user.func_id, param : '0'})">{{user.func_departamento}}</a></td>
- 							<td>@mdo</td>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Funcionários </strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Cadastro</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.funcionario_cadastro.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.funcionario_cadastro.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.funcionario_cadastro.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.funcionario_cadastro.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Permissões</td>
+ 							<td></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.funcionario_permissoes.alterar"></td>
+ 							<td></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.funcionario_permissoes.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Boletins</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Boletins</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.boletim.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.boletim.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.boletim.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.boletim.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Links úteis</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Links úteis</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.links_uteis.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.links_uteis.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.links_uteis.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.links_uteis.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Processos</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Identificação</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_identificacao.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_identificacao.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_identificacao.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_identificacao.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Clientes</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_clientes.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_clientes.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_clientes.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_clientes.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Ritos</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_ritos.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_ritos.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_ritos.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_ritos.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Cadastro</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_cadastros.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_cadastros.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_cadastros.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.processos_cadastros.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Contatos</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Contatos</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.contatos.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.contatos.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.contatos.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.contatos.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Compromissos</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Compromissos</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.compromissos.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.compromissos.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.compromissos.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.compromissos.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Caixa</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Caixa</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.caixa.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.caixa.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.caixa.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.caixa.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Biblioteca</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Biblioteca</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.biblioteca.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.biblioteca.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.biblioteca.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.biblioteca.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Fale Conosco</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Fale Conosco</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.fale_conosco.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.fale_conosco.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.fale_conosco.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.fale_conosco.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Currículos</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Currículos</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.curriculos.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.curriculos.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.curriculos.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.curriculos.localizar"></td>
+ 							<td></td>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+ 							<td colspan="7" class="titulo-tabela-permissoes"><strong>Estatísticas</strong></td>
+ 						</tr>
+ 						<tr>
+ 							<td>Estatísticas</td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.estatisticas.excluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.estatisticas.alterar"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.estatisticas.incluir"></td>
+ 							<td><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="permissao.estatisticas.localizar"></td>
+ 							<td></td>
+ 							<td></td>
  						</tr>
  					</tbody>
  				</table>
+ 				<button class="btn btn-success pull-right" ng-click="postPermissoes(user.func_id, 1)">Atualizar</button>
  			</div>
  		</div>
  	</div>
