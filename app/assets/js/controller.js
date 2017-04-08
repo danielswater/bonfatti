@@ -94,42 +94,23 @@ app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, 
 
 app.controller('NoticiaController', function($scope, $http){
 
-	$scope.titleOptions = {
-		placeholderText: 'Add a Title',
-		charCounterCount: false,
-		toolbarInline: true,
-		events: {
-			'froalaEditor.initialized': function() {
-				console.log('initialized');
-			}
+	$scope.noticias = {};
+
+	$scope.froalaOptions = {
+		placeholderText: '',
+		events :{
+			'froalaEditor.image.inserted': function(e, editor, $img, response) {
+				
+          },
+
 		}
-	};
-
-	$scope.initialize = function(initControls) {
-		$scope.initControls = initControls;
-		$scope.deleteAll = function() {
-			initControls.getEditor()('html.set', '');
-		};
-	};
-
-	$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
-	$scope.sample2Text = '';
-	$scope.sample3Text = '';
-
-	$scope.imgModel = {src: 'image.jpg'};
-
-	$scope.buttonModel = {innerHTML: 'Click Me'};
-
-	$scope.inputModel = {placeholder: 'I am an input!'};
-	$scope.inputOptions = {
-		angularIgnoreAttrs: ['class', 'ng-model', 'id', 'froala']
 	}
 
-	$scope.initializeLink = function(linkInitControls) {
-		$scope.linkInitControls = linkInitControls;
-	};
-
-	$scope.noticias = {};
+	$scope.salvaNoticia = function(){
+		$http.post(url+'noticia', $scope.noticias).then(function(data){
+			console.log('data', data);
+		})
+	}
 
 })
 

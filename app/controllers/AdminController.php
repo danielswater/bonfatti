@@ -406,18 +406,19 @@ class AdminController extends BaseController {
 		$id = Input::get('not_id');
 
 		if($id == null){
-			$noticia = new Notícia();
-			$mensagem = 'Artigo salvo com sucesso!';
+			$noticia = new Noticia();
+			$mensagem = 'Notícia salva com sucesso!';
 		}
 		else{
-			$noticia = Notícia::find($id);
+			$noticia = Noticia::find($id);
 			$mensagem = 'Notícia atualizado com sucesso!';
 		}
-		$noticia->titulo = Input::get('titulo');
-		$noticia->imagem = Input::get('imagem');
-		$noticia->conteudo = Input::get('conteudo');
-		$noticia->data = date('Y:m:d');
-
+		$noticia->not_data = date('Y:m:d H:i:s');
+		$noticia->not_titulo = Input::get('not_titulo');
+		$noticia->not_chamada = Input::get('not_chamada');
+		$noticia->not_texto = Input::get('not_texto');
+		$noticia->not_publicar = Input::get('not_publicar');
+ 
 		try{
 			$noticia->save();
 			return Response::json(array('sucesso' => true, 'mensagem' => $mensagem));
@@ -429,7 +430,7 @@ class AdminController extends BaseController {
 
 	public function postRemoverNoticia($id){
 
-		$noticia = Notícia::find($id);
+		$noticia = Noticia::find($id);
 
 		if($noticia->ativo == 0){
 			$noticia->ativo = 1;
@@ -521,9 +522,4 @@ class AdminController extends BaseController {
 		Auth::logout();
 		return Redirect::to('/');
 	}
-
-	// private function verificaEmail($email, $id){
-	// 	$email = User::where('email', '=', $email)->where('id', '<>', $id)->pluck('email');
-	// 	return ($email) ? true : false;
-	// }
 }

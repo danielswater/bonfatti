@@ -1,8 +1,8 @@
 var app = angular.module('modulo', ['ngAnimate','toaster', 'ngSanitize','ngCookies','froala','ngResource','ngStorage', 'ngSanitize','ngTouch', 'ui.bootstrap', 'ui.router'])
 .value('froalaConfig', {
 		toolbarInline: false,
-		placeholderText: 'Coloque o conteúdo aqui!'
-	});
+		placeholderText: 'Caralho'
+	})
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateParams){
 	
