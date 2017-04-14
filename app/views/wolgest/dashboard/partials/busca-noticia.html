@@ -1,0 +1,96 @@
+ <toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'position-class': 'toast-top-center'}"></toaster-container>
+ <div class="col-md-12 col-sm-12 col-xs-12">
+ 	<div class="x_panel">
+ 		<div class="x_title">
+ 			<h2>Buscar Notícia</h2>
+
+ 			<div class="clearfix"></div>
+ 		</div>
+ 		<div class="x_content">
+ 			<br>
+
+ 			<div class="col-md-12 col-sm-12 col-xs-12">
+
+ 				<form class="form-horizontal form-label-left">
+ 					<div class="row">
+ 						<div class="form-group">
+ 							<label>Selecione uma forma de pesquisa</label>
+ 							<select class="form-control" ng-model="pesquisa">
+ 								<option value="" selected="">--- Selecione ---</option>
+ 								<option value="1">Pesquisar por data</option>
+ 								<option value="2">Pesquisar por título</option>
+ 								<option value="3">Pesquisar por chamada</option>
+ 							</select>
+ 						</div>
+ 					</div>
+ 					<div class="row" ng-show="pesquisa == 1">
+ 						<div class="form-group">
+ 							<div class="col-md-3" style="padding-left: 0px;">
+ 								<label >Data</label>
+ 								<p class="input-group">
+ 									<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="noticias.data_inicio" placeholder="Data inicial" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+ 									/>
+ 									<span class="input-group-btn">
+ 										<button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+ 									</span>
+ 								</p>
+ 							</div>
+ 							<div class="col-md-3" style="padding-left: 0px;">
+ 								<label>&nbsp;</label>
+ 								<p class="input-group">
+ 									<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="noticias.data_fim" placeholder="Data final" is-open="opened2" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+ 									/>
+ 									<span class="input-group-btn">
+ 										<button type="button" class="btn btn-default" ng-click="open2($event)"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+ 									</span>
+ 								</p>
+ 							</div>
+ 						</div>
+ 					</div>
+ 					<div class="row" ng-show="pesquisa == 2">
+ 						<div class="form-group">
+ 							<label>Título</label>
+ 							<input type="text" class="form-control" name="titulo" ng-model="noticias.titulo" />
+ 						</div>
+ 					</div>
+ 					<div class="row" ng-show="pesquisa == 3">
+ 						<div class="form-group">
+ 							<label>Chamada</label>
+ 							<input type="text" class="form-control" name="titulo" ng-model="noticias.chamada" />
+ 						</div>
+ 					</div> 				
+ 					<div class="row">
+ 						<div class="form-group">
+ 							<label></label>
+ 							<button class="btn btn-success pull-right" ng-click="buscaTodasNoticia()" type="button">Mostrar todas</button>
+ 							<button class="btn btn-primary pull-right" ng-click="buscarNoticia()" type="button">Buscar</button>
+ 							
+ 						</div>
+ 					</div>
+ 				</div>
+
+ 			</form>
+
+ 		</div>
+
+ 		<div class="col-md-12" ng-show="tabelaNoticia.length">
+ 			<table class="table table-bordered table-striped">
+ 				<thead>
+ 					<tr>
+ 						<th>Nome</th>
+ 						<th>Departamento</th>
+ 						<th>Excluir</th>
+ 					</tr>
+ 				</thead>
+ 				<tbody>
+ 					<tr ng-repeat="user in tabelaUsuarios">
+ 						<td><a ui-sref="usuario({usuario: user.func_id, param: '0'})">{{user.func_nome}}</a></td>
+ 						<td><a ui-sref="usuario({usuario: user.func_id, param : '0'})">{{user.func_departamento}}</a></td>
+ 						<td>@mdo</td>
+ 					</tr>
+ 				</tbody>
+ 			</table>
+ 		</div>
+ 	</div>
+ </div>
+</div>

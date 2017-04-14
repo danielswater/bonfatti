@@ -89,10 +89,10 @@
 										</li>
 									</ul>
 								</li> 
-								<li><a><i class="fa fa-desktop"></i> Boletins <span class="fa fa-chevron-down"></span></a>
+								<li ng-hide="permissao.boletim.incluir == 0 && permissao.boletim.localizar == 0"><a><i class="fa fa-desktop"></i> Boletins <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a ui-sref="noticia">Cadastrar</a></li>
-										<li><a href="general_elements.html">Procurar</a></li>
+										<li ng-hide="permissao.boletim.incluir == 0"><a ui-sref="noticia({param: '1'})">Cadastrar</a></li>
+										<li ng-hide="permissao.boletim.localizar == 0"><a ui-sref="noticia({param: '2'})">Procurar</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
@@ -299,6 +299,7 @@
 		<!-- Custom Theme Scripts -->
 		<script src="{{URL::to('app/assets/jquery/jquery.min.js')}}"></script>
 		<script src="{{URL::to('app/assets/angular/angular.js')}}"></script>
+		<script src="{{URL::to('app/assets/angular/angular-locale_pt-br.js')}}"></script>
 		<script src="{{URL::to('app/assets/bootstrap/js/bootstrap.js')}}"></script>
 		<script src="{{URL::to('app/assets/angular/angular-animate.js')}}"></script>
 		<script src="{{URL::to('app/assets/angular/angular-cookie.js')}}"></script>
@@ -308,7 +309,7 @@
 		<script src="{{URL::to('app/assets/jquery/moment.js')}}"></script>
 		<script src="{{URL::to('app/assets/angular/angular-ui-router.js')}}"></script>
 		<script src="{{URL::to('app/assets/bootstrap/js/bootstrap-progressbar.js')}}"></script>
-		<script src="{{URL::to('app/assets/js/icheck.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/pt-br.js')}}"></script>
 		<script src="{{URL::to('app/assets/angular/ngstorage.js')}}"></script>
 
 		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/froala_editor.min.js')}}"></script>
@@ -333,6 +334,7 @@
 		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/save.min.js')}}"></script>
 		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/table.min.js')}}"></script>
 		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/plugins/video.min.js')}}"></script>
+		<script src="{{URL::to('app/assets/bower_components/froala-wysiwyg-editor/js/languages/pt_br.js')}}"></script>
 
 		<!-- FIM DOS PLUGINS -->
 		

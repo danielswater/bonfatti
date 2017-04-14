@@ -1,36 +1,45 @@
+ <toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'position-class': 'toast-top-center'}"></toaster-container>
+ <div class="col-md-12 col-sm-12 col-xs-12">
+ 	<div class="x_panel">
+ 		<div class="x_title">
+ 			<h2>Notícias</h2>
+ 			<div class="clearfix"></div>
+ 		</div>
+ 		<div class="x_content">
+ 			<form name="form" ng-submit="submitForm(form.$valid)" ui-event="{reset: 'reset(formulario)'}" novalidate class="form-horizontal form-label-left ng-pristine ng-valid">
+ 				<div class="form-group" ng-class="{ 'has-error' : form.titulo.$invalid && !form.titulo.$pristine || !form.titulo.$valid && submitted}">
+ 					<label for="name">Título</label>
+ 					<input type="text" name="titulo" required ng-model="noticias.not_titulo" class="form-control" >
+ 					<p ng-show="form.titulo.$invalid && !form.titulo.$pristine || !form.titulo.$valid && submitted" class="help-block">O título é obrigatório.</p>
+ 				</div>
+ 				<div class="form-group" ng-class="{ 'has-error' : form.chamada.$invalid && !form.chamada.$pristine || !form.chamada.$valid && submitted}">
+ 					<label for="name">Chamada</label>
+ 					<input type="text" required="" name="chamada" ng-model="noticias.not_chamada" class="form-control" >
+ 					<p ng-show="form.chamada.$invalid && !form.chamada.$pristine || !form.chamada.$valid && submitted" class="help-block">A chamada é obrigatória.</p>
+ 				</div>
+ 				<div class="form-group" ng-class="{ 'has-error' : form.conteudo.$invalid && !form.conteudo.$pristine || !form.conteudo.$valid && submitted}">
+ 					<label for="address">Conteúdo</label>
+ 					<textarea name="conteudo" required froala="froalaOptions" ng-model="noticias.not_texto"></textarea>
+ 					<p ng-show="form.conteudo.$invalid && !form.conteudo.$pristine || !form.conteudo.$valid && submitted" class="help-block">O conteúdo é obrigatório.</p>
+ 				</div>
+ 				<div class="form-group" ng-class="{ 'has-error' : form.publicar.$invalid && !form.publicar.$pristine || !form.publicar.$valid && submitted}">
+ 					<label for="address">Publicar</label>
+ 					<select name="publicar" required ng-model="noticias.not_publicar" class="form-control">
+ 						<option value="" selected="">---- Selecione ----</option>
+ 						<option value="1">Sim</option>
+ 						<option value="0">Não</option>
+ 					</select>
+ 					<p ng-show="form.publicar.$invalid && !form.publicar.$pristine || !form.publicar.$valid && submitted" class="help-block">Informe se a notícia deve ou não ser publicada.</p>
+ 				</div>
+ 				<div class="form-group">
+ 					<label></label>
+ 					<button type="reset" class="btn pull-right">Nova Notícia</button>
+ 					<button type="submit" class="btn btn-large btn-primary pull-right">Salvar</button>
+ 				</div>
+ 			</form>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-	<div class="panel panel-default">
-		<div class="panel-heading"><i class="icon-list-alt"></i> Artigos</div>
-		<div class="panel-body">
 
-					<div class="form-group">
-						<label for="name">Título</label>
-						<input type="text" required="" ng-model="noticias.not_titulo" class="form-control" >
-					</div>
-					<div class="form-group">
-						<label for="name">Chamada</label>
-						<input type="text" required="" ng-model="noticias.not_chamada" class="form-control" >
-					</div>
-					<div class="form-group">
-						<label for="address">Conteúdo</label>
-						<textarea froala="froalaOptions" ng-model="noticias.not_texto"></textarea>
-					</div>
-					<div class="form-group">
-						<label for="address">Publicar</label>
-						<select ng-model="noticias.not_publicar" class="form-control">
-							<option value="" selected="">---- Selecione ----</option>
-							<option value="1">Sim</option>
-							<option value="0">Não</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label></label>
-						<button type="button" ng-click="salvaNoticia()" class="btn btn-large btn-primary pull-right">Salvar</button>
-					</div>
-				</form>
+ 		</div>
+ 	</div>
 
-			</div>
-		</div>
-	</div>
-</div>
+ </div>

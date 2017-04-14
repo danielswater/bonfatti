@@ -2,6 +2,8 @@
 
 class AdminController extends BaseController {
 
+	public $url = 'http://localhost/bonfatti/';
+
 	public function getIndex(){
 
 		return View::make('wolgest.dashboard.index');
@@ -376,6 +378,28 @@ class AdminController extends BaseController {
 	*********************************************************************
 	*/
 
+	public function postFiltraNoticia(){
+		if(Input::has('data_inicio')){
+			$dataInicio = Input::get('data_inicio');			
+			$noticia = DB::select("select * from noticia where not_data between '{$dataInicio} 00:00:00' and '{$dataInicio} 23:59:59'");
+		}
+		if(Input::has('data_inicio') && Input::has('data_fim')){
+			$dataInicio = Input::get('data_inicio');
+			$dataFim = Input::get('data_fim');
+			$noticia = DB::select("select * from noticia where not_data between date('$dataInicio') and date('$dataFim')");
+		}
+		if(Input::has('titulo')){
+			$titulo = Input::get('titulo');
+			$noticia = Noticia::where('not_titulo', 'LIKE', "%$titulo%")->get();
+		}
+		if(Input::has('chamada')){
+			$chamada = Input::get('chamada');
+			$noticia = Noticia::where('not_chamada', 'LIKE', "%$chamada%")->get();
+		}
+		return Response::json(array('noticia' => $noticia));
+	}
+
+	// Busca a noticia pelo id, se for null, pega todas as noticias ou filtra pelos parametros
 	public function getNoticia($id = null){
 
 		if($id === null){
@@ -387,19 +411,35 @@ class AdminController extends BaseController {
 		return Response::json(array('noticia' => $noticia));
 	}
 
-/*	public function postImagem(){
+	//Faz upload de imagem
+	public function postImagem(){
 
 		$file = Input::file('file');
-		$destino = 'app/assets/imagem';
+		$destino = base_path().('/app/assets/imagem/');
 		$filename = $file->getClientOriginalName();
 		$filename = uniqid() . $filename;
 		$extension = $file->getClientOriginalExtension();
 		$sucesso = Input::file('file')->move($destino, $filename);
 
+		$path = $this->url.'app/assets/imagem/'.$filename;
+
 		if($sucesso){
-			return $filename;
+			return Response::json(array('link' => $path));
 		}
-	}*/
+	}
+
+	//Remove a imagem do servidor, caso seja excluída do editor
+	public function postRemoveImagem(){
+		$file = Input::all();
+		$img = explode('/imagem/', $file['link']);
+		//echo $img[1];
+		$filename = base_path().('/app/assets/imagem/').$img[1];
+		if(File::exists($filename)){
+			if(File::delete($filename)){
+				return "sucesso";
+			}
+		}
+	}
 
 	public function postNoticia(){
 
@@ -418,7 +458,7 @@ class AdminController extends BaseController {
 		$noticia->not_chamada = Input::get('not_chamada');
 		$noticia->not_texto = Input::get('not_texto');
 		$noticia->not_publicar = Input::get('not_publicar');
- 
+
 		try{
 			$noticia->save();
 			return Response::json(array('sucesso' => true, 'mensagem' => $mensagem));
@@ -453,70 +493,6 @@ class AdminController extends BaseController {
 			return Response::json(array('sucesso' => false, 'mensagem' => 'Ocorreu um erro ao remover o artigo: ' . $e->getMessage()));
 		}
 	}
-
-	// public function getEditarPost($id){
-
-	// 	$usuario = User::find($id);
-	// 	return View::make('web.dashboard.editar', compact('usuario'));
-	// }
-
-	// public function postEditarPost(){
-
-	// 	$usuario = User::find(Input::get('id'));
-	// 	$usuario->nome = Input::get('nome');
-	// 	$usuario->email = Input::get('email');
-	// 	$usuario->password = Hash::make(Input::get('password'));
-
-	// 	if($this->verificaEmail($usuario->email, Input::get('id'))){
-	// 		return Redirect::to('administrador/dashboard/editar/'.$usuario->id)->with('message', 'Já existe um usuário cadastrado com esse email!');
-	// 	}
-	// 	else{
-	// 		try{
-	// 			$usuario->save();
-	// 			return Redirect::to('administrador/dashboard/editar/'.$usuario->id)->with('message', 'Usuário alterado com sucesso!');
-	// 		}
-	// 		catch(\Exception $e){
-	// 			$e->getMessage();
-	// 		}
-	// 	}
-	// }
-
-	// public function getListar(){
-
-	// 	$usuarios = User::where('tipo', '<>', 1)->where('ativo', '=', 0)->get();
-
-	// 	return View::make('web.dashboard.listar', compact('usuarios'));
-	// }
-
-	// public function getDeletar($id){
-
-	// 	$usuario = User::find($id);
-
-	// 	$usuario->ativo = 0;
-
-	// 	try{
-	// 		$usuario->save();
-	// 		return Redirect::to('administrador/dashboard')->with('delete', 'Usuário removido com sucesso!');
-	// 	}
-	// 	catch(\Exception $e){
-	// 		$e->getMessage();
-	// 	}
-	// }
-
-	// public function getAtivar($id){
-
-	// 	$usuario = User::find($id);
-
-	// 	$usuario->ativo = 1;
-
-	// 	try{
-	// 		$usuario->save();
-	// 		return Redirect::to('administrador/dashboard')->with('ativar', 'Usuário ativado com sucesso!');
-	// 	}
-	// 	catch(\Exception $e){
-	// 		$e->getMessage();
-	// 	}
-	// }
 
 	public function getSair(){
 		Auth::logout();

@@ -1,7 +1,7 @@
 var app = angular.module('modulo', ['ngAnimate','toaster', 'ngSanitize','ngCookies','froala','ngResource','ngStorage', 'ngSanitize','ngTouch', 'ui.bootstrap', 'ui.router'])
 .value('froalaConfig', {
 		toolbarInline: false,
-		placeholderText: 'Caralho'
+		placeholderText: ''
 	})
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateParams){
@@ -37,10 +37,21 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 	})
 	.state('noticia', {
 		urL: '/noticia',
+		params: {
+			param: 0,
+			noticia: 0
+		},
 		views: {
 			'content@' : {
-				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/noticia.html',
+				templateUrl: function($stateParams){
+					if($stateParams.param == 2){
+						return '/bonfatti/app/views/wolgest/dashboard/partials/busca-noticia.html';
+					}
+					return '/bonfatti/app/views/wolgest/dashboard/partials/noticia.html';
+				},
 				controller: 'NoticiaController'
+				// templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/noticia.html',
+				// controller: 'NoticiaController'
 			}
 		}
 	})

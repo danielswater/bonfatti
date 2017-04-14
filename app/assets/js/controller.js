@@ -1,9 +1,10 @@
 var url = '/bonfatti/administrador/dashboard/';
 
-app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, $stateParams, UsuarioService, $rootScope){
+app.controller('UsuarioController', function($state,$scope, $http, $rootScope,toaster, $stateParams, UsuarioService, $rootScope){
 
 	$scope.user = {};
 	$scope.botao = true;
+	$scope.botao_atualizar = true;
 
 	$scope.getUserInfo = function(id){
 		UsuarioService.getInfo(id).then(function(data){
@@ -41,12 +42,22 @@ app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, 
 
 	};
 
+	$scope.reset = function(form) {
+		$scope.submitted = false;
+		form.$setPristine();
+		form.$setUntouched();
+		$scope.user = {};
+	};
+
 	if($stateParams.param == 0){
 		console.log('$stateParams', $stateParams);
 		$scope.getUserInfo($stateParams.usuario);
 		UsuarioService.usuarioPermissao().then(function(data){			
 			if(data.funcionario_cadastro[0].alterar == 0 && $stateParams.usuario != 0){
 				$scope.botao = false;
+			}
+			if(data.funcionario_cadastro[0].incluir == 0){
+				$scope.botao_atualizar = false;
 			}
 		})
 	}
@@ -92,23 +103,116 @@ app.controller('UsuarioController', function($scope, $http, $rootScope,toaster, 
 	// $scope.listaArtigos();
 })
 
-app.controller('NoticiaController', function($scope, $http){
+app.controller('NoticiaController', function($scope, $http, toaster){
 
 	$scope.noticias = {};
 
+	$scope.clear = function () {
+		$scope.noticias.data_inicio = null;
+	};
+
+	$scope.toggleMin = function() {
+		$scope.minDate = $scope.minDate ? null : new Date();
+	};
+	$scope.toggleMin();
+
+	$scope.open = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.opened = true;
+	};
+
+	$scope.open2 = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.opened2 = true;
+	};
+
+	$scope.dateOptions = {
+		formatYear: 'yy',
+		startingDay: 1
+	};
+
+	$scope.formats = ['dd/MM/yyyy','shortDate'];
+	$scope.format = $scope.formats[0];
+
 	$scope.froalaOptions = {
+		tableResizerOffset: 10,
+		tableResizingLimit: 50,
+		imageUploadParam: 'file',
+		imageUploadMethod: 'POST',
+		imageUploadURL: url+'imagem',
+		language: 'pt_br',
+		height: 300,
 		placeholderText: '',
 		events :{
-			'froalaEditor.image.inserted': function(e, editor, $img, response) {
-				
-          },
+			'froalaEditor.image.beforeUpload': function(e, editor, images){
+			},
+			'froalaEditor.image.uploaded': function(e, editor, response){
+				$scope.imagem = JSON.parse(response);
+			},
+			'froalaEditor.image.inserted': function(e, editor, $img, response){
+				//console.log('imagem inserida', $img[0].src);
+			},
+			'froalaEditor.image.removed': function(e, editor, $img) {
+				$http.post(url+'remove-imagem', $scope.imagem).then(function(data){
+					
+				})
+			},
+			'froalaEditor.image.error': function(e, editor, error, response){
+			}
 
 		}
 	}
 
-	$scope.salvaNoticia = function(){
-		$http.post(url+'noticia', $scope.noticias).then(function(data){
-			console.log('data', data);
+	$scope.submitForm = function(isValid){
+		$scope.submitted = true;
+		if(isValid){
+			$http.post(url+'noticia', $scope.noticias).then(function(data){
+				if(data.data.sucesso){
+					toaster.pop('success', "Sucesso", data.data.mensagem, 5000);
+				}
+				else{
+					toaster.pop('error', "Erro", data.data.mensagem, 5000);
+				}
+			})
+		}
+	}
+
+	$scope.reset = function(form) {
+		$scope.submitted = false;
+		form.$setPristine();
+		form.$setUntouched();
+		$scope.noticias = {};
+	};
+
+	$scope.buscaTodasNoticia = function(){
+
+	}
+
+	$scope.buscarNoticia = function(){
+
+		$scope.tabelaNoticia = [];
+
+		if($scope.noticias.data_inicio){
+			$scope.noticias.data_inicio = moment($scope.noticias.data_inicio).format('YYYY-MM-DD');
+		}
+		if($scope.noticias.data_fim){
+			$scope.noticias.data_fim = moment($scope.noticias.data_fim).format('YYYY-MM-DD');
+		}
+		if((new Date($scope.noticias.data_inicio).getTime() > new Date($scope.noticias.data_fim).getTime())){
+			toaster.pop('error', "Erro", "A data inicial não pode ser maior que a data final.", 5000);
+			return;
+		}
+		if($scope.noticias.data_fim && !$scope.noticias.data_inicio){
+			toaster.pop('error', "Erro", "Escolha uma data inicial para esse tipo de busca.", 5000);
+			return;
+		}
+		$http.post(url+'filtra-noticia', $scope.noticias).then(function(data){
+			console.log(data.data.noticia);
+			$scope.tabelaNoticia = data.data.noticia;
 		})
 	}
 
@@ -123,7 +227,6 @@ app.controller('PermissaoController', function($scope, $http, UsuarioService, $r
 	});
 
 	$scope.getTabelaPermissao = function(id){
-		// $scope.permissao.id_usuario = id;
 		$http.get(url+'tabela-permissoes/'+id).then(function(data){
 			$scope.permissao.funcionario_cadastro = data.data.funcionario_cadastro[0];
 			$scope.permissao.funcionario_permissoes = data.data.funcionario_permissoes[0];
