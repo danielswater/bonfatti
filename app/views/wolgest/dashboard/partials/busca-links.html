@@ -1,0 +1,52 @@
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>Buscar Links</h2>
+			<div class="clearfix"></div>
+		</div>
+		<div class="x_content">
+			<br>
+			<form name="form" ng-submit="filtrarLink(form.$valid)" novalidate class="form-horizontal form-label-left ng-pristine ng-valid">
+				
+				<div class="form-group" ng-class="{ 'has-error' : form.nome.$invalid && !form.nome.$pristine || !form.nome.$valid && submitted}">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12" >Nome <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input type="text" name="nome" ng-model="links.link_nome" required class="form-control col-md-7 col-xs-12">
+						<p ng-show="form.nome.$invalid && !form.nome.$pristine || !form.nome.$valid && submitted" class="help-block">O nome é obrigatório.</p>
+					</div>
+				</div>				
+				<div class="ln_solid"></div>
+				<div class="form-group">
+					<div  class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+						
+						<button type="button" ng-click="getLinks()" class="btn btn-success pull-right">Mostrar todos</button>
+						<button type="submit" class="btn btn-primary pull-right">Buscar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-12 col-sm-12 col-xs-12" ng-show="tabelaLink.length">
+ 			<table class="table table-bordered table-striped">
+ 				<thead>
+ 					<tr>
+ 						<th>Nome</th>
+ 						<th>URL</th>
+ 						<th>Excluir</th>
+ 					</tr>
+ 				</thead>
+ 				<tbody>
+ 						<td><a ui-sref="links({link: links.not_id, param : '0'})">{{links.not_titulo}}</a></td>
+ 						<td><a ui-sref="links({link: links.not_id, param : '0'})">{{links.not_chamada}}</a></td>
+ 						<td><a ui-sref="links({link: links.not_id, param : '0'})">{{links.not_publicar}}</a></td>
+ 					</tr>
+ 				</tbody>
+ 			</table>
+ 			<div class="text-center">
+				<pagination total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+			</div>
+ 		</div>
+	</div>
+</div>

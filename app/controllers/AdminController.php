@@ -399,10 +399,10 @@ class AdminController extends BaseController {
 		return Response::json(array('noticia' => $noticia));
 	}
 
-	// Busca a noticia pelo id, se for null, pega todas as noticias ou filtra pelos parametros
-	public function getNoticia($id = null){
+	// Busca a noticia pelo id, se for null, pega todas as noticias
+	public function getNoticia($id){
 
-		if($id === null){
+		if($id == 0){
 			$noticia = Noticia::orderBy('not_id', 'DESC')->get();
 		}
 		else{
@@ -432,7 +432,6 @@ class AdminController extends BaseController {
 	public function postRemoveImagem(){
 		$file = Input::all();
 		$img = explode('/imagem/', $file['link']);
-		//echo $img[1];
 		$filename = base_path().('/app/assets/imagem/').$img[1];
 		if(File::exists($filename)){
 			if(File::delete($filename)){
@@ -441,6 +440,7 @@ class AdminController extends BaseController {
 		}
 	}
 
+	// Cria uma nova notícia caso não seja passado o id, se for passado, atualiza
 	public function postNoticia(){
 
 		$id = Input::get('not_id');
@@ -451,7 +451,7 @@ class AdminController extends BaseController {
 		}
 		else{
 			$noticia = Noticia::find($id);
-			$mensagem = 'Notícia atualizado com sucesso!';
+			$mensagem = 'Notícia atualizada com sucesso!';
 		}
 		$noticia->not_data = date('Y:m:d H:i:s');
 		$noticia->not_titulo = Input::get('not_titulo');
@@ -468,6 +468,7 @@ class AdminController extends BaseController {
 		}
 	}
 
+	// Remove notícia pelo id passado
 	public function postRemoverNoticia($id){
 
 		$noticia = Noticia::find($id);
@@ -481,7 +482,7 @@ class AdminController extends BaseController {
 
 		try{
 			if($noticia->ativo == 0){
-				$mensagem = 'Notícia inativado com sucesso!';
+				$mensagem = 'Notícia excluida com sucesso!';
 			}
 			else{
 				$mensagem = 'Notícia ativado com sucesso!';
@@ -493,6 +494,41 @@ class AdminController extends BaseController {
 			return Response::json(array('sucesso' => false, 'mensagem' => 'Ocorreu um erro ao remover o artigo: ' . $e->getMessage()));
 		}
 	}
+
+	/*
+	*********************************************************************
+	**************** METODOS REFERENTE A LINKS **************************
+	*********************************************************************
+	*/
+
+	public function postLink(){
+
+	}
+
+	public function postFiltraLink(){
+		if(Input::has('link_nome')){
+			$nome = Input::get('link_nome');
+			$link = Links::where('link_nome', 'LIKE', "%$nome%")->get();
+		}
+		return Response::json(array('links' => $link));
+	}
+
+	public function getLink($id = null){
+
+		if($id === null){
+			$links = Links::orderBy('link_id', 'DESC')->get();
+		}
+		else{
+			$links = Links::find($id);
+		}
+		return Response::json(array('links' => $links));
+	}
+
+	/*
+	*********************************************************************
+	************************** SAIR DO SISTEMA **************************
+	*********************************************************************
+	*/
 
 	public function getSair(){
 		Auth::logout();

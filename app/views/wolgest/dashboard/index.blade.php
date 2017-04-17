@@ -34,7 +34,7 @@
 </head>
 
 <body ng-app="modulo" class="nav-md">
-	<div class="container body">
+	<div class="container body ">
 		<div class="main_container">
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
@@ -76,7 +76,7 @@
 												<ul class="nav child_menu">
 													<li ng-hide="permissao.funcionario_cadastro.incluir == 0"><a ui-sref="usuario({param: '1'})">Cadastrar</a>
 													</li>
-													<li ng-hide="permissao.funcionario_cadastro.localizar == 0"><a ui-sref="usuario({param: '2'})">Procurar</a>
+													<li ng-hide="permissao.funcionario_cadastro.localizar == 0"><a ui-sref="busca-usuario({param: '2'})">Procurar</a>
 													</li>
 												</ul>
 											</li>
@@ -92,13 +92,13 @@
 								<li ng-hide="permissao.boletim.incluir == 0 && permissao.boletim.localizar == 0"><a><i class="fa fa-desktop"></i> Boletins <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li ng-hide="permissao.boletim.incluir == 0"><a ui-sref="noticia({param: '1'})">Cadastrar</a></li>
-										<li ng-hide="permissao.boletim.localizar == 0"><a ui-sref="noticia({param: '2'})">Procurar</a></li>
+										<li ng-hide="permissao.boletim.localizar == 0"><a ui-sref="busca-noticia({param: '2'})">Procurar</a></li>
 									</ul>
 								</li>
-								<li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-table"></i> Links Úteis <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tables.html">Tables</a></li>
-										<li><a href="tables_dynamic.html">Table Dynamic</a></li>
+										<li><a ui-sref="links({param: '1'})">Cadastrar</a></li>
+										<li><a ui-sref="busca-links({param: '2'})">Procurar</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>

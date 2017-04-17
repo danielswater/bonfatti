@@ -15,7 +15,7 @@
  					<div class="row">
  						<div class="form-group">
  							<label>Selecione uma forma de pesquisa</label>
- 							<select class="form-control" ng-model="pesquisa">
+ 							<select class="form-control" ng-model="pesquisa" ng-change="limpaNoticia()">
  								<option value="" selected="">--- Selecione ---</option>
  								<option value="1">Pesquisar por data</option>
  								<option value="2">Pesquisar por título</option>
@@ -62,8 +62,8 @@
  					<div class="row">
  						<div class="form-group">
  							<label></label>
- 							<button class="btn btn-success pull-right" ng-click="buscaTodasNoticia()" type="button">Mostrar todas</button>
- 							<button class="btn btn-primary pull-right" ng-click="buscarNoticia()" type="button">Buscar</button>
+ 							<button class="btn btn-success pull-right" ng-click="getNoticia(0)" type="button">Mostrar todas</button>
+ 							<button class="btn btn-primary pull-right" ng-click="filtrarNoticia()" type="button">Buscar</button>
  							
  						</div>
  					</div>
@@ -77,19 +77,24 @@
  			<table class="table table-bordered table-striped">
  				<thead>
  					<tr>
- 						<th>Nome</th>
- 						<th>Departamento</th>
- 						<th>Excluir</th>
+ 						<th>Data</th>
+ 						<th>Título</th>
+ 						<th>Chamada</th>
+ 						<th>Publicado</th>
  					</tr>
  				</thead>
  				<tbody>
- 					<tr ng-repeat="user in tabelaUsuarios">
- 						<td><a ui-sref="usuario({usuario: user.func_id, param: '0'})">{{user.func_nome}}</a></td>
- 						<td><a ui-sref="usuario({usuario: user.func_id, param : '0'})">{{user.func_departamento}}</a></td>
- 						<td>@mdo</td>
+ 					<tr ng-repeat="noticia in tabelaNoticia.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+ 						<td nowrap="nowrap"><a ui-sref="noticia({noticia: noticia.not_id, param: '0'})">{{noticia.not_data}}</a></td>
+ 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_titulo}}</a></td>
+ 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_chamada}}</a></td>
+ 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_publicar}}</a></td>
  					</tr>
  				</tbody>
  			</table>
+ 			<div class="text-center">
+				<pagination total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+			</div>
  		</div>
  	</div>
  </div>

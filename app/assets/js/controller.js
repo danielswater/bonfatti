@@ -68,44 +68,12 @@ app.controller('UsuarioController', function($state,$scope, $http, $rootScope,to
 		});
 	}
 
-	// $scope.artigos = {};
-
-	// $scope.listaArtigos = function(){
-	// 	$http.get(url+'artigo').then(function(data){
-	// 		$scope.artigos = data.data.artigo;
-	// 		$scope.viewby = 10;
-	// 		$scope.totalItems = $scope.artigos.length;
-	// 		$scope.currentPage = 1;
-	// 		$scope.itemsPerPage = $scope.viewby;
-	// 	});
-	// }
-
-	// $scope.removerArtigo = function(artigo){
-	// 	$http.post(url+'remover-artigo/'+artigo.id).then(function(data){
-	// 		if(data.data.sucesso){
-	// 			$scope.mensagem = data.data.mensagem;
-	// 			$scope.listaArtigos();
-	// 		}
-	// 	});
-	// }
-	// $scope.setPage = function (pageNo) {
-	// 	$scope.currentPage = pageNo;
-	// };
-
-	// $scope.pageChanged = function() {
-	// 	console.log('Page changed to: ' + $scope.currentPage);
-	// };
-	// $scope.setItemsPerPage = function(num) {
-	// 	$scope.itemsPerPage = num;
-	// 	$scope.currentPage = 1;
-	// }
-
-	// $scope.listaArtigos();
 })
 
-app.controller('NoticiaController', function($scope, $http, toaster){
+app.controller('NoticiaController', function($scope, $http, toaster, $stateParams){
 
 	$scope.noticias = {};
+	$scope.tabelaNoticia = [];
 
 	$scope.clear = function () {
 		$scope.noticias.data_inicio = null;
@@ -188,13 +156,20 @@ app.controller('NoticiaController', function($scope, $http, toaster){
 		$scope.noticias = {};
 	};
 
-	$scope.buscaTodasNoticia = function(){
-
+	$scope.limpaNoticia = function(){
+		$scope.noticias = {};
 	}
 
-	$scope.buscarNoticia = function(){
+	$scope.getNoticia = function(id){
 
-		$scope.tabelaNoticia = [];
+		$http.get(url+'noticia/'+id).then(function(data){
+			$scope.noticias = data.data.noticia;
+			$scope.tabelaNoticia = $scope.noticias;
+			$scope.paginacao($scope.noticias);
+		})
+	}
+
+	$scope.filtrarNoticia = function(){
 
 		if($scope.noticias.data_inicio){
 			$scope.noticias.data_inicio = moment($scope.noticias.data_inicio).format('YYYY-MM-DD');
@@ -211,9 +186,32 @@ app.controller('NoticiaController', function($scope, $http, toaster){
 			return;
 		}
 		$http.post(url+'filtra-noticia', $scope.noticias).then(function(data){
-			console.log(data.data.noticia);
-			$scope.tabelaNoticia = data.data.noticia;
+			$scope.noticias = data.data.noticia;
+			$scope.tabelaNoticia = $scope.noticias;
+			$scope.paginacao($scope.noticias);
+
 		})
+	}
+
+	$scope.setItemsPerPage = function(num) {
+		$scope.itemsPerPage = num;
+		$scope.currentPage = 1;
+	}
+
+	$scope.setPage = function (pageNo) {
+		$scope.currentPage = pageNo;
+	};
+
+	$scope.paginacao = function(obj){
+		$scope.viewby = 10;
+		$scope.totalItems = obj.length;
+		$scope.currentPage = 1;
+		$scope.itemsPerPage = $scope.viewby;
+		$scope.maxSize = 5;
+	}
+
+	if($stateParams.param == 0 && $stateParams.noticia != 0){
+		$scope.getNoticia($stateParams.noticia);
 	}
 
 })
@@ -261,62 +259,38 @@ app.controller('PermissaoController', function($scope, $http, UsuarioService, $r
 
 })
 
-// app.controller('ArtigoController', function($scope, $http, $state, $stateParams, $rootScope, $timeout){
+app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $stateParams){
 
-// 	$scope.uploader = {};
-// 	$scope.notedited = true;
+	$scope.botao = true;
+	$scope.botao_atualizar = true;
+	$scope.links = {};
+	$scope.tabelaLink = [];
 
-// 	if($stateParams.id){
-// 		$scope.notedited = false;
-// 		$http.get(url+'artigo/'+$stateParams.id).then(function(data){
-// 			$scope.artigo = data.data.artigo;
-// 		});
-// 	}
-// 	else{
-// 		$scope.artigo = {};
-// 	}	
+	$scope.reset = function(form) {
+		$scope.submitted = false;
+		form.$setPristine();
+		form.$setUntouched();
+		$scope.noticias = {};
+	};
 
-// 	$scope.options = {
-// 		language: 'pt-br',
-// 		allowedContent: true,
-// 		entities: false
-// 	};
+	$scope.getLinks = function(id){
 
-// 	$scope.salvaArtigo = function(){
+	}
 
-// 		$scope.uploader.flow.opts.target = url+'imagem';
-// 		$scope.uploader.flow.opts.singleFile = true;
-// 		$scope.uploader.flow.opts.simultaneousUploads = 1;
-// 		$scope.uploader.flow.opts.testChunks = false;
-// 		$scope.uploader.flow.opts.permanentErrors = [415, 500, 501];
-// 		$scope.uploader.flow.opts.testMethod = "POST";
-// 		$scope.uploader.flow.upload();
+	$scope.filtrarLink = function(valid){
+		$scope.submitted = true;
+		if(valid){
+			$http.post(url+'filtra-link', $scope.links).then(function(data){
+				console.log('data', data);
+			})
+		}
+	}
 
-// 		$scope.uploader = {
-// 			controllerFn: function ($flow, $file, $message) {
-// 				$scope.artigo.imagem = $message;
-// 			}
-// 		}
+	$scope.submitForm = function(valid){
+		$scope.submitted = true;
+		if(valid){
+			console.log('scope', $scope.links);
+		}
+	}
 
-// 		$timeout(function(){
-// 			$http.post(url+'artigo', $scope.artigo).then(function(data){
-// 				if(data.data.sucesso){
-// 					$rootScope.mensagem = data.data.mensagem;
-// 					$scope.artigo = {};
-// 					$state.go('dash');
-// 				}
-// 			})
-// 		},1000)
-// 	}
-
-// 	$scope.removerImagem = function(){
-// 		if(!$scope.notedited){
-// 			$scope.notedited = true;
-// 			delete $scope.artigo.imagem;
-// 		}
-// 		else{
-// 			$scope.uploader.flow.cancel();
-// 		}
-
-// 	}
-// })
+})

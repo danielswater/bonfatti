@@ -15,17 +15,24 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		},
 		views: {
 			'content@' : {
-				templateUrl : function($stateParams){
-					if($stateParams.param == 2){
-						return '/bonfatti/app/views/wolgest/dashboard/partials/busca-usuario.html';
-					}
-					return '/bonfatti/app/views/wolgest/dashboard/partials/home.html'
-				},
+				templateUrl : '/bonfatti/app/views/wolgest/dashboard/partials/home.html',
 				controller: 'UsuarioController'
 			}
 		}
 	})
-
+	.state('busca-usuario', {
+		url: '/busca-usuario',
+		params: {
+			param: 0,
+			usuario: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-usuario.html',
+				controller: 'UsuarioController'
+			}
+		}
+	})
 	.state('permissao', {
 		url: '/permissao',
 		views: {
@@ -43,15 +50,48 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		},
 		views: {
 			'content@' : {
-				templateUrl: function($stateParams){
-					if($stateParams.param == 2){
-						return '/bonfatti/app/views/wolgest/dashboard/partials/busca-noticia.html';
-					}
-					return '/bonfatti/app/views/wolgest/dashboard/partials/noticia.html';
-				},
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/noticia.html',
 				controller: 'NoticiaController'
-				// templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/noticia.html',
-				// controller: 'NoticiaController'
+			}
+		}
+	})
+	.state('busca-noticia', {
+		url: '/busca-noticia',
+		params: {
+			param: 0,
+			noticia: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-noticia.html',
+				controller: 'NoticiaController'
+			}
+		}
+
+	})
+	.state('links', {
+		url: '/links',
+		params: {
+			param: 0,
+			link: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/links.html',
+				controller: 'LinksUteis'
+			}
+		}
+	})
+	.state('busca-links', {
+		url: '/busca-links',
+		params: {
+			param: 0,
+			link: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-links.html',
+				controller: 'LinksUteis'
 			}
 		}
 	})

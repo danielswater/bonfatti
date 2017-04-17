@@ -6,7 +6,9 @@
   width: 70px;
   padding: 0;
   z-index: 9999;
-  position: absolute; }
+  position: absolute;
+  min-height: 100%;
+}
 
 .nav-sm .container.body .col-md-3.left_col.menu_fixed {
   position: fixed;
@@ -191,7 +193,10 @@
   padding: 0;
   position: absolute;
   display: flex;
-  z-index: 9999; }
+  display: -ms-flexbox;
+  z-index: 1;
+  min-height: 100%;
+}
 
 .nav-md .container.body .col-md-3.left_col.menu_fixed {
   height: 100%;
