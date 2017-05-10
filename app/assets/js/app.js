@@ -105,7 +105,6 @@ app.run(function($rootScope, $http){
 	$rootScope.permissao = {};
 
 	$rootScope.getTabelaPermissao = function(){
-
 		$http.get(url+'tabela-permissoes/'+0).then(function(data){
 			$rootScope.permissao.funcionario_cadastro = data.data.funcionario_cadastro[0];
 			$rootScope.permissao.funcionario_permissoes = data.data.funcionario_permissoes[0];
@@ -126,12 +125,10 @@ app.run(function($rootScope, $http){
 			console.log('rootScope', $rootScope.permissao);
 		})
 	}
-
 	$rootScope.getTabelaPermissao();
 })
 
 app.service('UsuarioService', ['$http', function($http){
-
 	this.getInfo = function(id){
 		return $http.get(url+'user-info/'+id).then(function(data){
 			return data.data.user;
@@ -147,6 +144,7 @@ app.service('UsuarioService', ['$http', function($http){
 			return data.data;
 		})
 	}
+
 }])
 
 

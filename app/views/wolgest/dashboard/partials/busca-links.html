@@ -19,8 +19,7 @@
 				</div>				
 				<div class="ln_solid"></div>
 				<div class="form-group">
-					<div  class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-						
+					<div  class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">						
 						<button type="button" ng-click="getLinks()" class="btn btn-success pull-right">Mostrar todos</button>
 						<button type="submit" class="btn btn-primary pull-right">Buscar</button>
 					</div>
@@ -38,9 +37,10 @@
  					</tr>
  				</thead>
  				<tbody>
- 						<td><a ui-sref="links({link: links.not_id, param : '0'})">{{links.not_titulo}}</a></td>
- 						<td><a ui-sref="links({link: links.not_id, param : '0'})">{{links.not_chamada}}</a></td>
- 						<td><a ui-sref="links({link: links.not_id, param : '0'})">{{links.not_publicar}}</a></td>
+ 					<tr ng-repeat="links in tabelaLink.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"">
+ 						<td><a ui-sref="links({link: links.link_id, param : '0'})">{{links.link_nome}}</a></td>
+ 						<td><a ui-sref="links({link: links.link_id, param : '0'})">{{links.link_url}}</a></td>
+ 						<td><a ui-sref="links({link: links.link_id, param : '0'})"></a></td>
  					</tr>
  				</tbody>
  			</table>

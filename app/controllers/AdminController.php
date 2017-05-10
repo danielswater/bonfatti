@@ -401,7 +401,6 @@ class AdminController extends BaseController {
 
 	// Busca a noticia pelo id, se for null, pega todas as noticias
 	public function getNoticia($id){
-
 		if($id == 0){
 			$noticia = Noticia::orderBy('not_id', 'DESC')->get();
 		}
@@ -413,7 +412,6 @@ class AdminController extends BaseController {
 
 	//Faz upload de imagem
 	public function postImagem(){
-
 		$file = Input::file('file');
 		$destino = base_path().('/app/assets/imagem/');
 		$filename = $file->getClientOriginalName();
@@ -502,7 +500,24 @@ class AdminController extends BaseController {
 	*/
 
 	public function postLink(){
+		if(Input::has('link_id')){
+			$link = Links::find(Input::get('link_id'));
+			$mensagem = 'Link atualizado com sucesso!';
+		}
+		else{
+			$link = new Links();
+			$mensagem = 'Link salvo com sucesso!';
+		}
+		$link->link_nome = Input::get('link_nome');
+		$link->link_url = INput::get('link_url');
 
+		try{
+			$link->save();
+			return Response::json(array('sucesso' => true, 'mensagem' => $mensagem));
+		}
+		catch(\Exception $e){
+			return Response::json(array('sucesso' => false, 'mensagem' => 'Ocorreu um erro ao salvar: ' . $e->getMessage()));
+		}
 	}
 
 	public function postFiltraLink(){
@@ -514,8 +529,7 @@ class AdminController extends BaseController {
 	}
 
 	public function getLink($id = null){
-
-		if($id === null){
+		if($id == null){
 			$links = Links::orderBy('link_id', 'DESC')->get();
 		}
 		else{

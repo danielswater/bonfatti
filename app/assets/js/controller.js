@@ -49,6 +49,9 @@ app.controller('UsuarioController', function($state,$scope, $http, $rootScope,to
 		$scope.user = {};
 	};
 
+	$scope.limpaUsuario = function(){
+		$scope.user = {};
+	}
 	if($stateParams.param == 0){
 		console.log('$stateParams', $stateParams);
 		$scope.getUserInfo($stateParams.usuario);
@@ -161,7 +164,6 @@ app.controller('NoticiaController', function($scope, $http, toaster, $stateParam
 	}
 
 	$scope.getNoticia = function(id){
-
 		$http.get(url+'noticia/'+id).then(function(data){
 			$scope.noticias = data.data.noticia;
 			$scope.tabelaNoticia = $scope.noticias;
@@ -219,7 +221,6 @@ app.controller('NoticiaController', function($scope, $http, toaster, $stateParam
 app.controller('PermissaoController', function($scope, $http, UsuarioService, $rootScope, toaster){
 
 	$scope.permissao = {};
-
 	UsuarioService.getTodosUsuarios().then(function(data){
 		$scope.items = data;
 	});
@@ -260,7 +261,6 @@ app.controller('PermissaoController', function($scope, $http, UsuarioService, $r
 })
 
 app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $stateParams){
-
 	$scope.botao = true;
 	$scope.botao_atualizar = true;
 	$scope.links = {};
@@ -270,13 +270,29 @@ app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $state
 		$scope.submitted = false;
 		form.$setPristine();
 		form.$setUntouched();
-		$scope.noticias = {};
+		$scope.links = {};
 	};
-
-	$scope.getLinks = function(id){
-
+	$scope.limpaLinks = function(){
+		$scope.links = {};
 	}
-
+	$scope.getLinks = function(id){
+		if(id == undefined){
+			$http.get(url+'link').then(function(data){
+				$scope.tabelaLink = data.data.links;				
+				$scope.paginacao($scope.tabelaLink);
+			})
+		}
+		else{
+			$http.get(url+'link/'+id).then(function(data){
+				$scope.tabelaLink = data.data.links;
+				$scope.links = data.data.links;
+			})
+		}
+	}
+	if($stateParams.param == 0){
+		console.log('state param', $stateParams);
+		$scope.getLinks($stateParams.link);
+	}
 	$scope.filtrarLink = function(valid){
 		$scope.submitted = true;
 		if(valid){
@@ -285,12 +301,38 @@ app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $state
 			})
 		}
 	}
-
+	
 	$scope.submitForm = function(valid){
 		$scope.submitted = true;
 		if(valid){
 			console.log('scope', $scope.links);
+			return;
+			$http.post(url+'link', $scope.links).then(function(data){
+				if(data.data.sucesso){
+					toaster.pop('success', "Sucesso", data.data.mensagem, 5000);
+				}
+				else{
+					toaster.pop('error', "Erro", data.data.mensagem, 5000);
+				}
+			})
 		}
+	}
+
+	$scope.setItemsPerPage = function(num) {
+		$scope.itemsPerPage = num;
+		$scope.currentPage = 1;
+	}
+
+	$scope.setPage = function (pageNo) {
+		$scope.currentPage = pageNo;
+	};
+
+	$scope.paginacao = function(obj){
+		$scope.viewby = 10;
+		$scope.totalItems = obj.length;
+		$scope.currentPage = 1;
+		$scope.itemsPerPage = $scope.viewby;
+		$scope.maxSize = 5;
 	}
 
 })
