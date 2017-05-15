@@ -83,7 +83,15 @@
  						<th>Publicado</th>
  					</tr>
  				</thead>
- 				<tbody>
+ 				<tbody ng-show="tabelaNoticia.length == 1">
+ 					<tr ng-repeat="noticia in tabelaNoticia">
+ 						<td nowrap="nowrap"><a ui-sref="noticia({noticia: noticia.not_id, param: '0'})">{{noticia.not_data}}</a></td>
+ 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_titulo}}</a></td>
+ 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_chamada}}</a></td>
+ 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_publicar}}</a></td>
+ 					</tr>
+ 				</tbody>
+ 				<tbody ng-show="tabelaNoticia.length > 1">
  					<tr ng-repeat="noticia in tabelaNoticia.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
  						<td nowrap="nowrap"><a ui-sref="noticia({noticia: noticia.not_id, param: '0'})">{{noticia.not_data}}</a></td>
  						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_titulo}}</a></td>
@@ -92,7 +100,7 @@
  					</tr>
  				</tbody>
  			</table>
- 			<div class="text-center">
+ 			<div class="text-center"  ng-show="tabelaNoticia.length > 1">
 				<pagination total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
 			</div>
  		</div>

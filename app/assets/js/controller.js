@@ -276,6 +276,7 @@ app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $state
 		$scope.links = {};
 	}
 	$scope.getLinks = function(id){
+		//$scope.tabelaLink = [];
 		if(id == undefined){
 			$http.get(url+'link').then(function(data){
 				$scope.tabelaLink = data.data.links;				
@@ -296,8 +297,10 @@ app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $state
 	$scope.filtrarLink = function(valid){
 		$scope.submitted = true;
 		if(valid){
-			$http.post(url+'filtra-link', $scope.links).then(function(data){
-				console.log('data', data);
+			//$scope.tabelaLink = [];
+			$http.post(url+'filtra-link', $scope.links).then(function(data){				
+				$scope.tabelaLink = data.data.links;
+				console.log('$scope.tabelaLink', $scope.tabelaLink);
 			})
 		}
 	}
@@ -306,7 +309,6 @@ app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $state
 		$scope.submitted = true;
 		if(valid){
 			console.log('scope', $scope.links);
-			return;
 			$http.post(url+'link', $scope.links).then(function(data){
 				if(data.data.sucesso){
 					toaster.pop('success', "Sucesso", data.data.mensagem, 5000);
