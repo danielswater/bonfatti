@@ -338,3 +338,7 @@ app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $state
 	}
 
 })
+
+app.controller('Processos', function($scope, $http, UsuarioService, $rootScope, toaster){
+	
+})

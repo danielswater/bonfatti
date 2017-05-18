@@ -95,7 +95,19 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			}
 		}
 	})
-
+	.state('identificacao', {
+		url: '/identificacao',
+		params: {
+			param: 0,
+			identificacao: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/identificacao.html',
+				controller: 'Processos'
+			}
+		}
+	})
 	$urlRouterProvider.otherwise('/');
 
 }])

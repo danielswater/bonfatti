@@ -551,6 +551,7 @@ class AdminController extends BaseController {
 
 	public function getSair(){
 		Auth::logout();
-		return Redirect::to('/');
+		Session::flush();
+		return Redirect::to('/wolgest');
 	}
 }
