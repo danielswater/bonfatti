@@ -108,6 +108,19 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			}
 		}
 	})
+	.state('busca-identificacao', {
+		url: '/busca-identificacao',
+		params: {
+			param: 0,
+			identificacao: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-identificacao.html',
+				controller: 'Processos'
+			}
+		}
+	})
 	$urlRouterProvider.otherwise('/');
 
 }])

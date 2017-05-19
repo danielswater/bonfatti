@@ -543,6 +543,46 @@ class AdminController extends BaseController {
 	*********************************************************************
 	*/
 
+	// CADASTRO OU ATUALIZAÇÃO DE IDENTIFICAÇÃO
+
+	public function postIdentificacao(){
+		if(Input::has('identificacao_id')){
+			$identificacao = ProcessosIdentificacao::find(Input::get('identificacao_id'));
+			$mensagem = 'Identificação alterada com sucesso!';
+		}
+		else{
+			$identificacao = new ProcessosIdentificacao();
+			$mensagem = 'Identificação salva com sucesso!';
+		}
+		$identificacao->identificacao_nome = Input::get('identificacao_nome');
+		try{
+			$identificacao->save();
+			return Response::json(array('sucesso' => true, 'mensagem' => $mensagem));
+		}
+		catch(\Exception $e){
+			return Response::json(array('sucesso' => false, 'mensagem' => 'Ocorreu um erro ao salvar: ' . $e->getMessage()));
+		}
+	}
+
+	// BUSCA IDENTIFICAÇÃO
+	public function getIdentificacao($id = null){
+		if($id == null){
+			$identificacao = ProcessosIdentificacao::orderBy('identificacao_id', 'DESC')->get();
+		}
+		else{
+			$identificacao = ProcessosIdentificacao::find($id);
+		}
+		return Response::json(array('processo_identificacao' => $identificacao));
+	}
+	
+	public function postFiltraIdentificacao(){
+		if(Input::has('identificacao_nome')){
+			$nome = Input::get('identificacao_nome');
+			$identificacao = ProcessosIdentificacao::where('identificacao_nome', 'LIKE', "%$nome%")->get();
+		}
+		return Response::json(array('processo_identificacao' => $identificacao));
+	}
+
 	/*
 	*********************************************************************
 	************************** SAIR DO SISTEMA **************************
