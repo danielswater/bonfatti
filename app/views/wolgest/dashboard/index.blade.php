@@ -74,7 +74,7 @@
 										<ul class="nav child_menu">
 											<li ng-hide="permissao.funcionario_cadastro.incluir == 0 && permissao.funcionario_cadastro.localizar == 0"><a>Cadastro<span class="fa fa-chevron-down"></span></a>
 												<ul class="nav child_menu">
-													<li ng-hide="permissao.funcionario_cadastro.incluir == 0"><a ui-sref="usuario({param: '1'})">Cadastrar</a>
+													<li ng-hide="permissao.funcionario_cadastro.incluir == 0"><a  ui-sref="usuario({param: '1'})">Cadastrar</a>
 													</li>
 													<li ng-hide="permissao.funcionario_cadastro.localizar == 0"><a ui-sref="busca-usuario({param: '2'})">Procurar</a>
 													</li>
@@ -113,9 +113,9 @@
 											</li>
 											<li ><a>Clientes<span class="fa fa-chevron-down"></span></a>
 												<ul class="nav child_menu">
-													<li ><a ui-sref="">Cadastrar</a>
+													<li ><a ui-sref="cliente({param: '1'})">Cadastrar</a>
 													</li>
-													<li ><a ui-sref="">Procurar</a>
+													<li ><a ui-sref="busca-cliente({param: '2'})">Procurar</a>
 													</li>
 												</ul>
 											</li>
@@ -303,7 +303,13 @@
 		<!-- FIM DOS PLUGINS -->
 		
 		<script src="{{URL::to('app/assets/js/app.js')}}"></script>
-		<script src="{{URL::to('app/assets/js/controller.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/services/service.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/controller/usuario.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/controller/noticia.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/controller/permissao.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/controller/links.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/controller/processo-identificacao.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/controller/processo-cliente.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/custom.min.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/toaster.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/angular-froala.js')}}"></script>

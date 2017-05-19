@@ -574,13 +574,21 @@ class AdminController extends BaseController {
 		}
 		return Response::json(array('processo_identificacao' => $identificacao));
 	}
-	
+
 	public function postFiltraIdentificacao(){
 		if(Input::has('identificacao_nome')){
 			$nome = Input::get('identificacao_nome');
 			$identificacao = ProcessosIdentificacao::where('identificacao_nome', 'LIKE', "%$nome%")->get();
 		}
 		return Response::json(array('processo_identificacao' => $identificacao));
+	}
+
+	// CADASTRO OU ATUALIZAÇÃO DE CLIENTES
+
+	public function postClientes(){
+		echo "<pre>";
+		print_r(Input::all());
+		echo "</pre>";
 	}
 
 	/*

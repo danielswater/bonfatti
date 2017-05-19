@@ -1,0 +1,151 @@
+<toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'position-class': 'toast-top-center'}"></toaster-container>
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>Cliente</h2>
+			<div class="clearfix"></div>
+		</div>
+		<div class="x_content">
+			<br>
+			<form name="form" ng-submit="submitForm(form.$valid)" ui-event="{reset: 'reset(formulario)'}" novalidate class="form-horizontal form-label-left ng-pristine ng-valid">
+				
+				<div class="form-group" ng-class="{ 'has-error' : form.tipo.$invalid && !form.tipo.$pristine || !form.tipo.$valid && submitted}">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12" >Tipo <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+					<select class="form-control" required name="tipo" required id="tipo" ng-options="tipo as tipo.label for tipo in tipos track by tipo.value" ng-model="processos_clientes.cliente_tipo">
+					<option value="">--- Selecione ---</option>
+						</select>
+						<p ng-show="form.tipo.$invalid && !form.tipo.$pristine || !form.tipo.$valid && submitted" class="help-block">O tipo é obrigatório.</p>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{ 'has-error' : form.cgc.$invalid && !form.cgc.$pristine || !form.cgc.$valid && submitted}">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">CPF (Somente números) <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input type="text" required ng-model="processos_clientes.cliente_cgc" name="cgc" class="form-control col-md-7 col-xs-12">
+						<p ng-show="form.cgc.$invalid && !form.cgc.$pristine || !form.cgc.$valid && submitted" class="help-block">O CPF é obrigatório.</p>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{ 'has-error' : form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted}">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Identificação <span class="required">*</span></label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<select class="form-control" name="identificacao" required id="identificacao" ng-options="item as item.identificacao_nome for item in itensIdentificacaoCliente track by item.identificacao_id" ng-model="processos_clientes.identificacao_id">
+							<option value="">--- Selecione ---</option>
+						</select>
+						<p ng-show="form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted" class="help-block">A identificação é obrigatória.</p>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{ 'has-error' : form.cliente_nome.$invalid && !form.cliente_nome.$pristine || !form.cliente_nome.$valid && submitted}">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12" >Nome/Razão Social <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input name="cliente_nome" type="text" ng-model="processos_clientes.cliente_nome" required  class="form-control col-md-7 col-xs-12">
+						<p ng-show="form.cliente_nome.$invalid && !form.cliente_nome.$pristine || !form.cliente_nome.$valid && submitted" class="help-block">O Nome/Razão Social é obrigatório.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12" >Endereço</label>
+					<div class="col-md-4 col-sm-4 col-xs-8">
+						<input name="cliente_endereco" type="text" ng-model="processos_clientes.cliente_endereco" class="form-control">
+					</div>
+					<div class="col-md-2 col-sm-2 col-xs-4">
+						<input name="cliente_numero" type="text" placeholder="Número" ng-model="processos_clientes.cliente_numero_end" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Complemento</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input name="complemento" ng-model="processos_clientes.cliente_complemento" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Bairro</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input name="bairro" ng-model="processos_clientes.cliente_bairro" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Cidade</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input name="cidade" ng-model="processos_clientes.cliente_cidade" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">CEP</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input name="cep" ng-model="processos_clientes.cliente_cep" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Estado </label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<select class="form-control" name="estado" id="estado" ng-options="estado as estado.Sigla for estado in listaEstado track by estado.ID" ng-model="processos_clientes.cliente_estado">
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Telefone</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input name="telefone" ng-model="processos_clientes.cliente_telefone" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+					<div class="col-md-1 col-sm-1 col-xs-12">
+						<button ng-click="adicionaTelefone()" class="btn btn-primary">{{labelTel}}</button>
+					</div>
+				</div>
+
+				<!-- imput dinamico -->
+				<div ng-show="telefoneExtra" class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Telefone Adicional</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input name="telefone_adicional" ng-model="processos_clientes.cliente_mais_telefone" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+				</div>
+				<!-- fim do imput -->
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Celular</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input name="celular" ng-model="processos_clientes.cliente_celular" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+					<div class="col-md-1 col-sm-1 col-xs-12">
+						<button  ng-click="adicionaCel()" class="btn btn-primary">{{labelCel}}</button>
+					</div>
+				</div>
+				<div ng-show="celExtra" class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Celular Adicional</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input name="celular_adicional" ng-model="processos_clientes.cliente_mais_celular" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input name="email" ng-model="processos_clientes.cliente_email" class="form-control col-md-7 col-xs-12"  type="text">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Informações adicionais</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<textarea ng-model="processos_clientes.cliente_info_adicional" class="form-control" placeholder="Ex: Telefone extra, email extra"></textarea>
+					</div>
+				</div>
+
+				<div class="ln_solid"></div>
+				<div class="form-group">
+					<!-- permissao.funcionario_permissoes.incluir -->
+					<div  class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+						<button ng-show="botao_atualizar" ng-click="limpaCliente()" type="reset" class="btn pull-right">Novo Cliente</button>
+						<button ng-show="botao" type="submit" class="btn btn-primary pull-right">Enviar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

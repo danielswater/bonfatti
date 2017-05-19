@@ -1,8 +1,8 @@
 var app = angular.module('modulo', ['ngAnimate','toaster', 'ngSanitize','ngCookies','froala','ngResource','ngStorage', 'ngSanitize','ngTouch', 'ui.bootstrap', 'ui.router'])
 .value('froalaConfig', {
-		toolbarInline: false,
-		placeholderText: ''
-	})
+	toolbarInline: false,
+	placeholderText: ''
+})
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider, $stateParams){
 	
@@ -104,7 +104,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		views: {
 			'content@' : {
 				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/identificacao.html',
-				controller: 'Processos'
+				controller: 'ProcessoIdentificacao'
 			}
 		}
 	})
@@ -117,7 +117,33 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		views: {
 			'content@' : {
 				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-identificacao.html',
-				controller: 'Processos'
+				controller: 'ProcessoIdentificacao'
+			}
+		}
+	})
+	.state('cliente', {
+		url: '/cliente',
+		params: {
+			param: 0,
+			cliente: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/cliente.html',
+				controller: 'ProcessosCliente'
+			}
+		}
+	})
+	.state('busca-cliente', {
+		url: '/busca-cliente',
+		params: {
+			param: 0,
+			cliente: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-cliente.html',
+				controller: 'ProcessosCliente'
 			}
 		}
 	})
@@ -125,12 +151,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
 }])
 
-app.run(function($rootScope, $http){
+app.run(function($rootScope, $http, $state){
 
+	$rootScope.url = '/bonfatti/administrador/dashboard/';
 	$rootScope.permissao = {};
+	$rootScope.$state = $state;
 
 	$rootScope.getTabelaPermissao = function(){
-		$http.get(url+'tabela-permissoes/'+0).then(function(data){
+		$http.get($rootScope.url+'tabela-permissoes/'+0).then(function(data){
 			$rootScope.permissao.funcionario_cadastro = data.data.funcionario_cadastro[0];
 			$rootScope.permissao.funcionario_permissoes = data.data.funcionario_permissoes[0];
 			$rootScope.permissao.boletim = data.data.boletim[0];
@@ -152,24 +180,3 @@ app.run(function($rootScope, $http){
 	}
 	$rootScope.getTabelaPermissao();
 })
-
-app.service('UsuarioService', ['$http', function($http){
-	this.getInfo = function(id){
-		return $http.get(url+'user-info/'+id).then(function(data){
-			return data.data.user;
-		})
-	}
-	this.getTodosUsuarios = function(){
-		return $http.get(url+'todos-usuarios').then(function(data){
-			return data.data.user;
-		})
-	}
-	this.usuarioPermissao = function(){
-		return $http.get(url+'tabela-permissoes/'+0).then(function(data){
-			return data.data;
-		})
-	}
-
-}])
-
-
