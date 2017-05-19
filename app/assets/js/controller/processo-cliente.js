@@ -40,7 +40,10 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 	$scope.submitForm = function(isValid){
 		$scope.submitted = true;
 		if(isValid){
-			console.log('processos_clientes', $scope.processos_clientes);
+			$http.post($rootScope.url+'clientes', $scope.processos_clientes).then(function(data){
+				
+			})
+			//console.log('processos_clientes', $scope.processos_clientes);
 		}
 	}
 

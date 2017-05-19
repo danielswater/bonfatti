@@ -23,7 +23,7 @@
 					<label class="control-label col-md-3 col-sm-3 col-xs-12">CPF (Somente números) <span class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<input type="text" required ng-model="processos_clientes.cliente_cgc" name="cgc" class="form-control col-md-7 col-xs-12">
+						<input required ng-model="processos_clientes.cliente_cgc" name="cgc" class="form-control col-md-7 col-xs-12">
 						<p ng-show="form.cgc.$invalid && !form.cgc.$pristine || !form.cgc.$valid && submitted" class="help-block">O CPF é obrigatório.</p>
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 						<input name="cliente_endereco" type="text" ng-model="processos_clientes.cliente_endereco" class="form-control">
 					</div>
 					<div class="col-md-2 col-sm-2 col-xs-4">
-						<input name="cliente_numero" type="text" placeholder="Número" ng-model="processos_clientes.cliente_numero_end" class="form-control">
+						<input name="cliente_numero" type="number" placeholder="Número" ng-model="processos_clientes.cliente_numero_end" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
@@ -133,7 +133,7 @@
 				<div class="form-group">
 					<label class="control-label col-md-3 col-sm-3 col-xs-12">Informações adicionais</label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<textarea ng-model="processos_clientes.cliente_info_adicional" class="form-control" placeholder="Ex: Telefone extra, email extra"></textarea>
+						<textarea ng-model="processos_clientes.cliente_info_adicional" class="form-control" placeholder="Telefone, Email ou qualquer outra informação que achar relevante"></textarea>
 					</div>
 				</div>
 
