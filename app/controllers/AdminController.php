@@ -584,11 +584,46 @@ class AdminController extends BaseController {
 	}
 
 	// CADASTRO OU ATUALIZAÇÃO DE CLIENTES
-
 	public function postClientes(){
-		echo "<pre>";
-		print_r(Input::all());
-		echo "</pre>";
+
+		if(Input::has('cliente_id')){
+			$cliente = ProcessosCliente::find(Input::get('cliente_id'));
+			$mensagem = 'Cliente alterado com sucesso!';
+		}
+		else{
+			$cliente = new ProcessosCliente();
+			$mensagem = 'Cliente salvo com sucesso!';
+		}
+		$cliente->cliente_tipo = Input::get('cliente_tipo.value');
+		$cliente->cliente_cgc = Input::get('cliente_cgc');
+		$cliente->identificacao_id = Input::get('identificacao_id.identificacao_id');
+		$cliente->cliente_nome = Input::get('cliente_nome');
+		$cliente->cliente_endereco = Input::get('cliente_endereco');
+		$cliente->cliente_numero_end = Input::get('cliente_numero_end');
+		$cliente->cliente_complemento = Input::get('cliente_complemento');
+		$cliente->cliente_bairro = Input::get('cliente_bairro');
+		$cliente->cliente_cidade = Input::get('cliente_cidade');
+		$cliente->cliente_estado = Input::get('cliente_estado.ID');
+		$cliente->cliente_cep = Input::get('cliente_cep');
+		$cliente->cliente_telefone = Input::get('cliente_telefone');
+		$cliente->cliente_mais_telefone = Input::get('cliente_mais_telefone');
+		$cliente->cliente_celular = Input::get('cliente_celular');
+		$cliente->cliente_mais_celular = Input::get('cliente_mais_celular');
+		$cliente->cliente_email = Input::get('cliente_email');
+		$cliente->cliente_info_adicional = Input::get('cliente_info_adicional');
+
+		try{
+			$cliente->save();
+			return Response::json(array('sucesso' => true, 'mensagem' => $mensagem));
+		}
+		catch(\Exception $e){
+			return Response::json(array('sucesso' => false, 'mensagem' => 'Ocorreu um erro ao salvar: ' . $e->getMessage()));
+		}
+	}
+
+	// BUSCA CLIENTES
+	public function getClientes($id = null){
+		
 	}
 
 	/*

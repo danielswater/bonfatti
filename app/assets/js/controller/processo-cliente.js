@@ -20,7 +20,7 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 		$scope.submitted = false;
 		form.$setPristine();
 		form.$setUntouched();
-		$scope.processo_identificacao = {};
+		$scope.processos_clientes = {};
 	};
 
 	ProcessoService.getListaProcessoIdentificacao().then(function(data){
@@ -41,10 +41,18 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 		$scope.submitted = true;
 		if(isValid){
 			$http.post($rootScope.url+'clientes', $scope.processos_clientes).then(function(data){
-				
-			})
-			//console.log('processos_clientes', $scope.processos_clientes);
+				if(data.data.sucesso){
+					toaster.pop('success', "Sucesso", data.data.mensagem, 5000);
+				}
+				else{
+					toaster.pop('error', "Erro", data.data.mensagem, 5000);
+				}
+			});
 		}
+	}
+
+	$scope.limpaCliente = function(){
+		$scope.processos_clientes = {};
 	}
 
 	$scope.setItemsPerPage = function(num) {
