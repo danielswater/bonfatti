@@ -623,7 +623,13 @@ class AdminController extends BaseController {
 
 	// BUSCA CLIENTES
 	public function getClientes($id = null){
-		
+		if($id == null){
+			$cliente = ProcessosCliente::orderBy('cliente_id', 'DESC')->get();
+		}
+		else{
+			$cliente = ProcessosCliente::find($id);
+		}
+		return Response::json(array('processo_cliente' => $cliente));
 	}
 
 	/*

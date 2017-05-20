@@ -50,6 +50,26 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 			});
 		}
 	}
+	$scope.filtraForm = function(isValid){
+		$scope.submitted = true;
+		if(isValid){
+			
+		}
+	}
+	$scope.getCliente = function(id){
+		if(id == undefined){
+			$http.get($rootScope.url+'clientes').then(function(data){
+				$scope.tabelaProcessoClientes = data.data.processo_cliente;
+				$scope.paginacao($scope.tabelaProcessoClientes);
+			})
+		}
+		else{
+			$http.get($rootScope.url+'clientes/'+id).then(function(data){
+				$scope.tabelaProcessoClientes = data.data.processo_cliente;
+				$scope.processos_clientes = data.data.processo_cliente;
+			})
+		}
+	}
 
 	$scope.limpaCliente = function(){
 		$scope.processos_clientes = {};
