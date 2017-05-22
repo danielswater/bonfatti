@@ -42,11 +42,21 @@
  						</div>
  					</div>
  					<div class="row" ng-show="pesquisa == 3">
- 						<div class="form-group">
- 							<label>Chamada</label>
- 							<input type="text" class="form-control" name="titulo" ng-model="noticias.chamada" />
+ 						<div class="form-group" ng-class="{ 'has-error' : form.tipo.$invalid && !form.tipo.$pristine || !form.tipo.$valid && submitted}">
+ 							<label >Tipo <span class="required">*</span></label>
+ 							<select class="form-control" required name="tipo" required id="tipo" ng-options="tipo as tipo.label for tipo in tipos track by tipo.value" ng-model="processos_clientes.cliente_tipo">
+ 								<option value="">--- Selecione ---</option>
+ 							</select>
+ 							<p ng-show="form.tipo.$invalid && !form.tipo.$pristine || !form.tipo.$valid && submitted" class="help-block">O tipo é obrigatório.</p>
  						</div>
- 					</div> 				
+ 					</div> 		
+ 					<div class="row" ng-show="pesquisa == 4">
+ 						<div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && !form.email.$pristine || !form.email.$valid && submitted}">
+ 							<label>Email</label>					
+ 							<input name="email" ng-model="processos_clientes.cliente_email" class="form-control"  type="text">
+ 							<p ng-show="form.email.$invalid && !form.email.$pristine || !form.email.$valid && submitted" class="help-block">O email é obrigatório.</p>
+ 						</div>
+ 					</div>		
  					<div class="row">
  						<div class="form-group">
  							<label></label>
@@ -58,35 +68,40 @@
  			</form>
  		</div>
 
- 		<div class="col-md-12" ng-show="tabelaNoticia.length">
+ 		<div class="col-md-12" ng-show="tabelaProcessoClientes.length">
  			<table class="table table-bordered table-striped">
  				<thead>
  					<tr>
- 						<th>Data</th>
- 						<th>Título</th>
- 						<th>Chamada</th>
- 						<th>Publicado</th>
+ 						<th>Nome</th>
+ 						<th>Tipo</th>
+ 						<th>Identificação</th>
+ 						<th>CPF/CNPJ</th>
+ 						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody ng-show="tabelaNoticia.length == 1">
- 					<tr ng-repeat="noticia in tabelaNoticia">
- 						<td nowrap="nowrap"><a ui-sref="noticia({noticia: noticia.not_id, param: '0'})">{{noticia.not_data}}</a></td>
- 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_titulo}}</a></td>
- 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_chamada}}</a></td>
- 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_publicar}}</a></td>
+ 				<tbody ng-show="tabelaProcessoClientes.length == 1">
+ 					<tr ng-repeat="cliente in tabelaProcessoClientes">
+ 						<td nowrap="nowrap"><a ui-sref="cliente({cliente: cliente.cliente_id, param: '0'})">{{cliente.cliente_nome}}</a></td>
+ 						<td ng-if="cliente.cliente_tipo == 'E'"><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Empresa</a></td>
+ 						<td ng-if="cliente.cliente_tipo == 'P'"><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Pessoa</a></td>
+ 						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.identificacao_nome}}</a></td>
+ 						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.cliente_cgc}}</a></td>
+ 						<td></td>
  					</tr>
  				</tbody>
- 				<tbody ng-show="tabelaNoticia.length > 1">
- 					<tr ng-repeat="noticia in tabelaNoticia.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
- 						<td nowrap="nowrap"><a ui-sref="noticia({noticia: noticia.not_id, param: '0'})">{{noticia.not_data}}</a></td>
- 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_titulo}}</a></td>
- 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_chamada}}</a></td>
- 						<td><a ui-sref="noticia({noticia: noticia.not_id, param : '0'})">{{noticia.not_publicar}}</a></td>
+ 				<tbody ng-show="tabelaProcessoClientes.length > 1">
+ 					<tr ng-repeat="cliente in tabelaProcessoClientes.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+ 						<td nowrap="nowrap"><a ui-sref="cliente({cliente: cliente.cliente_id, param: '0'})">{{cliente.cliente_nome}}</a></td>
+ 						<td ng-if="cliente.cliente_tipo == 'E'""><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Empresa</a></td>
+ 						<td ng-if="cliente.cliente_tipo == 'P'"><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Pessoa</a></td>
+ 						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.identificacao_nome}}</a></td>
+ 						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.cliente_cgc}}</a></td>
+ 						<td></td>
  					</tr>
  				</tbody>
  			</table>
- 			<div class="text-center"  ng-show="tabelaNoticia.length > 1">
- 				<pagination total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+ 			<div class="text-center"  ng-show="tabelaProcessoClientes.length > 1">
+ 				<pagination first-text="&laquo;" last-text="&raquo;" boundary-links="true" max-size="maxSize" rotate="false" total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
  			</div>
  		</div>
  	</div>

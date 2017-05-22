@@ -31,7 +31,7 @@
 					<label class="control-label col-md-3 col-sm-3 col-xs-12">Identificação <span class="required">*</span></label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<select class="form-control" name="identificacao" required id="identificacao" ng-options="item as item.identificacao_nome for item in itensIdentificacaoCliente track by item.identificacao_id" ng-model="processos_clientes.identificacao_id">
-							<option value="">--- Selecione ---</option>
+							<option >--- Selecione ---</option>
 						</select>
 						<p ng-show="form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted" class="help-block">A identificação é obrigatória.</p>
 					</div>

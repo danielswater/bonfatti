@@ -624,12 +624,23 @@ class AdminController extends BaseController {
 	// BUSCA CLIENTES
 	public function getClientes($id = null){
 		if($id == null){
-			$cliente = ProcessosCliente::orderBy('cliente_id', 'DESC')->get();
+			$cliente = ProcessosCliente::orderBy('cliente_id', 'DESC')->get();		
+			foreach ($cliente as $key => $value) {
+				$cli = DB::table('processos_identificacao')->where('identificacao_id', $value->identificacao_id)->pluck('identificacao_nome');
+				$cliente[$key]['identificacao_nome'] = $cli;
+			}	
 		}
 		else{
 			$cliente = ProcessosCliente::find($id);
 		}
+		
 		return Response::json(array('processo_cliente' => $cliente));
+	}
+
+	public function filtraCliente(){
+		if(Input::has('identificacao_id')){
+			$cliente = DB::table('processos_clientes');
+		}
 	}
 
 	/*

@@ -12,9 +12,11 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 	$scope.tipos = [		
 		{label: 'Empresa', value: 'E'}, {label: 'Pessoa', value: 'P'}
 	];	
-	//$scope.processos_clientes.cliente_tipo = $scope.tipos[0];
+	//$scope.processos_clientes.cliente_tipo = $scope.tipos[0]; itensIdentificacaoCliente
 	$scope.listaEstado = EstadoService.getEstados();
 	$scope.processos_clientes.cliente_estado = $scope.listaEstado[0];
+
+	console.log('state cliente', $stateParams);
 
 	$scope.reset = function(form) {
 		$scope.submitted = false;
@@ -70,6 +72,10 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 			})
 		}
 	}
+	if($stateParams.param == 0){
+		$scope.getCliente($stateParams.cliente);
+		
+	}
 
 	$scope.limpaCliente = function(){
 		$scope.processos_clientes = {};
@@ -89,7 +95,7 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 		$scope.totalItems = obj.length;
 		$scope.currentPage = 1;
 		$scope.itemsPerPage = $scope.viewby;
-		$scope.maxSize = 5;
+		$scope.maxSize = 10;
 	}
 
 })
