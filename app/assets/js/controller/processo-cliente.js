@@ -74,7 +74,6 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 	}
 	if($stateParams.param == 0){
 		$scope.getCliente($stateParams.cliente);
-		
 	}
 
 	$scope.limpaCliente = function(){

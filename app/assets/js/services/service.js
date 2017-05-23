@@ -27,7 +27,7 @@ app.service('ProcessoService', ['$http', '$rootScope', function($http, $rootScop
 app.service('EstadoService', function(){
 	this.getEstados = function(){
 		return [{
-			"ID": "",
+			"ID": "0",
 			"Sigla": "--- Selecione ---"
 		},
 		{

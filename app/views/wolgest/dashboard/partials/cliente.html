@@ -30,8 +30,8 @@
 				<div class="form-group" ng-class="{ 'has-error' : form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted}">
 					<label class="control-label col-md-3 col-sm-3 col-xs-12">Identificação <span class="required">*</span></label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<select class="form-control" name="identificacao" required id="identificacao" ng-options="item as item.identificacao_nome for item in itensIdentificacaoCliente track by item.identificacao_id" ng-model="processos_clientes.identificacao_id">
-							<option >--- Selecione ---</option>
+						<select class="form-control" name="identificacao"  id="identificacao" ng-options="item as item.identificacao_nome for item in itensIdentificacaoCliente track by item.identificacao_id" ng-model="processos_clientes.identificacao_id">
+							<option value="">--- Selecione ---</option>
 						</select>
 						<p ng-show="form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted" class="help-block">A identificação é obrigatória.</p>
 					</div>
@@ -50,7 +50,7 @@
 						<input name="cliente_endereco" type="text" ng-model="processos_clientes.cliente_endereco" class="form-control">
 					</div>
 					<div class="col-md-2 col-sm-2 col-xs-4">
-						<input name="cliente_numero" type="number" placeholder="Número" ng-model="processos_clientes.cliente_numero_end" class="form-control">
+						<input name="cliente_numero"  placeholder="Número" ng-model="processos_clientes.cliente_numero_end" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
@@ -82,9 +82,10 @@
 				</div>
 
 				<div class="form-group">
-					<label class="control-label col-md-3 col-sm-3 col-xs-12">Estado </label>
+					<label class="control-label col-md-3 col-sm-3 col-xs-12">Estado</label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<select class="form-control" name="estado" id="estado" ng-options="estado as estado.Sigla for estado in listaEstado track by estado.ID" ng-model="processos_clientes.cliente_estado">
+						
 						</select>
 					</div>
 				</div>
@@ -95,7 +96,7 @@
 						<input name="telefone" ng-model="processos_clientes.cliente_telefone" class="form-control col-md-7 col-xs-12"  type="text">
 					</div>
 					<div class="col-md-1 col-sm-1 col-xs-12">
-						<button ng-click="adicionaTelefone()" class="btn btn-primary">{{labelTel}}</button>
+						<button ng-click="adicionaTelefone()" type="button" class="btn btn-primary">{{labelTel}}</button>
 					</div>
 				</div>
 
@@ -113,7 +114,7 @@
 						<input name="celular" ng-model="processos_clientes.cliente_celular" class="form-control col-md-7 col-xs-12"  type="text">
 					</div>
 					<div class="col-md-1 col-sm-1 col-xs-12">
-						<button  ng-click="adicionaCel()" class="btn btn-primary">{{labelCel}}</button>
+						<button  ng-click="adicionaCel()" type="button" class="btn btn-primary">{{labelCel}}</button>
 					</div>
 				</div>
 				<div ng-show="celExtra" class="form-group">
