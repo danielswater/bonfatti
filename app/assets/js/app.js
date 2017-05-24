@@ -156,7 +156,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		views: {
 			'content@' : {
 				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/rito.html',
-				controller: 'ProcessosCliente'
+				controller: 'ProcessosRito'
 			}
 		}
 	})

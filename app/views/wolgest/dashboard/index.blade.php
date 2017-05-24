@@ -310,6 +310,7 @@
 		<script src="{{URL::to('app/assets/js/controller/links.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/controller/processo-identificacao.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/controller/processo-cliente.js')}}"></script>
+		<script src="{{URL::to('app/assets/js/controller/processo-rito.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/custom.min.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/toaster.js')}}"></script>
 		<script src="{{URL::to('app/assets/js/angular-froala.js')}}"></script>

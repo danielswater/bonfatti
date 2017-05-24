@@ -1,4 +1,4 @@
-app.controller('ProcessoIdentificacao', function($scope, $http, $rootScope, toaster, $stateParams){
+app.controller('ProcessosRito', function($scope, $http, $rootScope, toaster, $stateParams){
 	$scope.botao = true;
 	$scope.botao_atualizar = true;
 	$scope.processo_rito = {};
@@ -27,6 +27,12 @@ app.controller('ProcessoIdentificacao', function($scope, $http, $rootScope, toas
 				}
 			})
 		}
+	}
+	$scope.getProcessoRito = function(){
+
+	}
+	$scope.filtraProcessoRito = function(isValid){
+		$scope.submitted = true;
 	}
 
 	$scope.setItemsPerPage = function(num) {

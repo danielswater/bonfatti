@@ -679,11 +679,11 @@ class AdminController extends BaseController {
 	public function postRito(){
 		if(Input::has('rito_id')){
 			$rito = ProcessosRito::find(Input::get('rito_id'));
-			$mensagem = 'Rito cadastrado com sucesso!';
+			$mensagem = 'Rito alterado com sucesso!';
 		}
 		else{
 			$rito = new ProcessosRito();
-			$mensagem = "Rito alterado com sucesso!";
+			$mensagem = "Rito cadastrado com sucesso!";
 		}
 		$rito->rito_nome = Input::get('rito_nome');
 
@@ -697,7 +697,7 @@ class AdminController extends BaseController {
 	}
 
 	public function getRito(){
-		
+
 	}
 
 	/*
