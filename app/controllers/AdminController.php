@@ -642,7 +642,7 @@ class AdminController extends BaseController {
 			$identificacao_id = Input::get('identificacao_id');
 			$cliente = ProcessosCliente::where('identificacao_id', '=', $identificacao_id)->get();
 		}
-		return Response::json(array('cliente' => $cliente));
+		return Response::json(array('processo_cliente' => $cliente));
 	}
 
 	/*

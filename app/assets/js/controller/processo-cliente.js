@@ -3,7 +3,7 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 	$scope.botao_atualizar = true;
 	$scope.botao = true;
 	$scope.processos_clientes = {};
-	$scope.tabelaProcessoClientes = {};
+	$scope.tabelaProcessoClientes = [];
 	$scope.itensIdentificacaoCliente = {};
 	$scope.telefoneExtra = false;
 	$scope.celExtra = false;
@@ -53,7 +53,8 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 		$scope.submitted = true;
 		//if(isValid){
 			$http.post($rootScope.url+'filtra-cliente', $scope.processos_clientes).then(function(data){
-				console.log('data', data);
+				$scope.tabelaProcessoClientes = data.data.processo_cliente;
+				console.log('$scope.tabelaProcessoClientes', $scope.tabelaProcessoClientes);
 			})
 		//}
 	}
@@ -66,7 +67,7 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 		}
 		else{
 			$http.get($rootScope.url+'clientes/'+id).then(function(data){
-				$scope.tabelaProcessoClientes = data.data.processo_cliente;
+				$scope.tabelaProcessoClientes = data.data.processo_cliente;				
 				$timeout(function(){
 					$scope.processos_clientes = data.data.processo_cliente;
 				},500);				

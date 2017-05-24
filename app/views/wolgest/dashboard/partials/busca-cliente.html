@@ -24,14 +24,15 @@
  							</select>
  						</div>
  					</div>
- 					<div class="row" >
- 						<div class="form-group" ng-class="{ 'has-error' : form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted}">
+ 					<div class="row" ng-if="pesquisa == 1">
+ 					<!-- ng-class="{ 'has-error' : form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted}" -->
+ 						<div class="form-group" >
  							<label>Identificação</label>
- 							<select name="identificacao" ng-model="processos_clientes.identificacao_id" class="form-control" >
+ 							<select required name="identificacao" ng-model="processos_clientes.identificacao_id" class="form-control" >
  								<option value="">--- Selecione ---</option>
  								<option data-ng-repeat="c in itensIdentificacaoCliente" value="{{c.identificacao_id}}">{{c.identificacao_nome}}</option>
  							</select>
- 							<p ng-show="form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted" class="help-block">A identificação é obrigatória.</p>
+ 							<!-- <p ng-show="form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted" class="help-block">A identificação é obrigatória.</p> -->
  						</div>
 
  					</div>
@@ -80,7 +81,7 @@
  						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody ng-show="tabelaProcessoClientes.length == 1">
+ 				<tbody ng-show="tabelaProcessoClientes.length"> 				
  					<tr ng-repeat="cliente in tabelaProcessoClientes">
  						<td nowrap="nowrap"><a ui-sref="cliente({cliente: cliente.cliente_id, param: '0'})">{{cliente.cliente_nome}}</a></td>
  						<td ng-if="cliente.cliente_tipo == 'E'"><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Empresa</a></td>
@@ -90,7 +91,7 @@
  						<td></td>
  					</tr>
  				</tbody>
- 				<tbody ng-show="tabelaProcessoClientes.length > 1">
+ 				<!-- <tbody ng-show="tabelaProcessoClientes.length > 1">
  					<tr ng-repeat="cliente in tabelaProcessoClientes.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
  						<td nowrap="nowrap"><a ui-sref="cliente({cliente: cliente.cliente_id, param: '0'})">{{cliente.cliente_nome}}</a></td>
  						<td ng-if="cliente.cliente_tipo == 'E'""><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Empresa</a></td>
@@ -99,7 +100,7 @@
  						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.cliente_cgc}}</a></td>
  						<td></td>
  					</tr>
- 				</tbody>
+ 				</tbody> -->
  			</table>
  			<div class="text-center"  ng-show="tabelaProcessoClientes.length > 1">
  				<pagination first-text="&laquo;" last-text="&raquo;" boundary-links="true" max-size="maxSize" rotate="false" total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
