@@ -1,0 +1,30 @@
+<toaster-container toaster-options="{'time-out': 500, 'close-button':true, 'position-class': 'toast-top-center'}"></toaster-container>
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>Rito</h2>
+			<div class="clearfix"></div>
+		</div>
+		<div class="x_content">
+			<br>
+			<form name="form" ng-submit="submitForm(form.$valid)" ui-event="{reset: 'reset(formulario)'}" novalidate class="form-horizontal form-label-left ng-pristine ng-valid">
+				
+				<div class="form-group" ng-class="{ 'has-error' : form.nome.$invalid && !form.nome.$pristine || !form.nome.$valid && submitted}">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12" >Nome <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input type="text" name="nome" ng-model="processo_rito.rito_nome" required class="form-control col-md-7 col-xs-12">
+						<p ng-show="form.nome.$invalid && !form.nome.$pristine || !form.nome.$valid && submitted" class="help-block">O nome é obrigatório.</p>
+					</div>
+				</div>				
+				<div class="ln_solid"></div>
+				<div class="form-group">
+					<div  class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+						<button ng-show="botao_atualizar" type="reset" ng-click="limpaRito()" class="btn pull-right">Novo Rito</button>
+						<button ng-show="botao" type="submit" class="btn btn-primary pull-right">Enviar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

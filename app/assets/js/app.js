@@ -147,6 +147,32 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			}
 		}
 	})
+	.state('rito', {
+		url: '/rito',
+		params: {
+			param: 0,
+			rito: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/rito.html',
+				controller: 'ProcessosCliente'
+			}
+		}
+	})
+	.state('busca-rito', {
+		url: '/busca-rito',
+		params: {
+			param: 0,
+			rito: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-rito.html',
+				controller: 'ProcessosRito'
+			}
+		}
+	})
 	$urlRouterProvider.otherwise('/');
 
 }])

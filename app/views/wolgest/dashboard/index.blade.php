@@ -121,9 +121,9 @@
 											</li>
 											<li ><a>Ritos<span class="fa fa-chevron-down"></span></a>
 												<ul class="nav child_menu">
-													<li ><a ui-sref="">Cadastrar</a>
+													<li ><a ui-sref="rito({param: '1'})">Cadastrar</a>
 													</li>
-													<li ><a ui-sref="">Procurar</a>
+													<li ><a ui-sref="busca-rito({param: '2'})">Procurar</a>
 													</li>
 												</ul>
 											</li>

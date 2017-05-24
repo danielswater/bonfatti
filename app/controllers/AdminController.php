@@ -647,7 +647,57 @@ class AdminController extends BaseController {
 			}	
 
 		}
+		if(Input::has('cliente_cgc')){
+			$cgc = Input::get('cliente_cgc');
+			$cliente = ProcessosCliente::where('cliente_cgc', '=', $cgc)->get();
+			foreach ($cliente as $key => $value) {
+				$cli = DB::table('processos_identificacao')->where('identificacao_id', $cliente[$key]['identificacao_id'])->pluck('identificacao_nome');
+				$cliente[$key]['identificacao_nome'] = $cli;
+			}
+		}
+		if(Input::has('cliente_tipo')){
+			$tipo = Input::get('cliente_tipo');
+			$cliente = ProcessosCliente::where('cliente_tipo', '=', $tipo)->get();
+			foreach ($cliente as $key => $value) {
+				$cli = DB::table('processos_identificacao')->where('identificacao_id', $cliente[$key]['cliente_tipo'])->pluck('identificacao_nome');
+				$cliente[$key]['identificacao_nome'] = $cli;
+			}
+		}
+		if(Input::has('cliente_email')){
+			$email = Input::get('cliente_email');
+			$cliente = ProcessosCliente::where('cliente_email', '=', $email)->get();
+			foreach ($cliente as $key => $value) {
+				$cli = DB::table('processos_identificacao')->where('identificacao_id', $cliente[$key]['cliente_email'])->pluck('identificacao_nome');
+				$cliente[$key]['identificacao_nome'] = $cli;
+			}
+		}
 		return Response::json(array('processo_cliente' => $cliente));
+	}
+
+	// CADASTRO DE RITOS E ATUALIZAÇÃO DE RITO
+
+	public function postRito(){
+		if(Input::has('rito_id')){
+			$rito = ProcessosRito::find(Input::get('rito_id'));
+			$mensagem = 'Rito cadastrado com sucesso!';
+		}
+		else{
+			$rito = new ProcessosRito();
+			$mensagem = "Rito alterado com sucesso!";
+		}
+		$rito->rito_nome = Input::get('rito_nome');
+
+		try{
+			$rito->save();
+			return Response::json(array('sucesso' => true, 'mensagem' => $mensagem));
+		}
+		catch(\Exception $e){
+			return Response::json(array('sucesso' => false, 'mensagem' => 'Ocorreu um erro ao salvar: ' . $e->getMessage()));
+		}
+	}
+
+	public function getRito(){
+		
 	}
 
 	/*

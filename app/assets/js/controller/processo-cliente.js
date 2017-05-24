@@ -51,10 +51,10 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 	}
 	$scope.filtraCliente = function(isValid){
 		$scope.submitted = true;
+		console.log('$scope.tabelaProcessoClientes', $scope.processos_clientes);
 		//if(isValid){
 			$http.post($rootScope.url+'filtra-cliente', $scope.processos_clientes).then(function(data){
 				$scope.tabelaProcessoClientes = data.data.processo_cliente;
-				console.log('$scope.tabelaProcessoClientes', $scope.tabelaProcessoClientes);
 				$scope.paginacao($scope.tabelaProcessoClientes);
 			})
 		//}
