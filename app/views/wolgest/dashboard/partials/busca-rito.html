@@ -27,7 +27,7 @@
 			</form>
 		</div>
 
-		<div class="col-md-12 col-sm-12 col-xs-12" ng-show="tabelaProcIdentificacao.length">
+		<div class="col-md-12 col-sm-12 col-xs-12" ng-show="tabelaRitos.length">
  			<table class="table table-bordered table-striped">
  				<thead>
  					<tr>
@@ -35,20 +35,14 @@
  						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody ng-show="tabelaProcIdentificacao.length == 1">
- 					<tr ng-repeat="identificacao in tabelaProcIdentificacao track by $index">
- 						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})">{{identificacao.identificacao_nome}}</a></td>
- 						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})"></a></td>
- 					</tr>
- 				</tbody>
- 				<tbody ng-show="tabelaProcIdentificacao.length > 1">
- 					<tr ng-repeat="identificacao in tabelaProcIdentificacao.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"">
- 						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})">{{identificacao.identificacao_nome}}</a></td>
- 						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})"></a></td>
+ 				<tbody >
+ 					<tr ng-repeat="rito in tabelaRitos.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"">
+ 						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})">{{rito.rito_nome}}</a></td>
+ 						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})"></a></td>
  					</tr>
  				</tbody>
  			</table>
- 			<div class="text-center" ng-show="tabelaProcIdentificacao.length > 1">
+ 			<div class="text-center" ng-show="tabelaRitos.length > itemsPerPage">
 				<pagination total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
 			</div>
  		</div>

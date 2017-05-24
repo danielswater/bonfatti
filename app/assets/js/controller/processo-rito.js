@@ -2,7 +2,7 @@ app.controller('ProcessosRito', function($scope, $http, $rootScope, toaster, $st
 	$scope.botao = true;
 	$scope.botao_atualizar = true;
 	$scope.processo_rito = {};
-	$scope.tabelaProcRito = [];
+	$scope.tabelaRitos = [];
 
 	$scope.reset = function(form) {
 		$scope.submitted = false;
@@ -28,7 +28,7 @@ app.controller('ProcessosRito', function($scope, $http, $rootScope, toaster, $st
 			})
 		}
 	}
-	$scope.getProcessoRito = function(){
+	$scope.getProcessoRito = function(id){
 
 	}
 	$scope.filtraProcessoRito = function(isValid){
