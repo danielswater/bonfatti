@@ -13,9 +13,11 @@
 					<label class="control-label col-md-3 col-sm-3 col-xs-12" >Tipo <span class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-					<select class="form-control" required name="tipo" required id="tipo" ng-options="tipo as tipo.label for tipo in tipos track by tipo.value" ng-model="processos_clientes.cliente_tipo">
-					<option value="">--- Selecione ---</option>
-						</select>
+
+						<select ng-model="processos_clientes.cliente_tipo" name="tipo" required class="form-control" >
+						<option value="">--- Selecione ---</option>
+   								<option data-ng-repeat="t in tipos" value="{{t.value}}" ng-selected="processos_clientes.cliente_tipo == t.value">{{t.label}}</option>
+                        </select>
 						<p ng-show="form.tipo.$invalid && !form.tipo.$pristine || !form.tipo.$valid && submitted" class="help-block">O tipo é obrigatório.</p>
 					</div>
 				</div>
@@ -27,12 +29,14 @@
 						<p ng-show="form.cgc.$invalid && !form.cgc.$pristine || !form.cgc.$valid && submitted" class="help-block">O CPF é obrigatório.</p>
 					</div>
 				</div>
+				
 				<div class="form-group" ng-class="{ 'has-error' : form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted}">
 					<label class="control-label col-md-3 col-sm-3 col-xs-12">Identificação <span class="required">*</span></label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<select class="form-control" name="identificacao"  id="identificacao" ng-options="item as item.identificacao_nome for item in itensIdentificacaoCliente track by item.identificacao_id" ng-model="processos_clientes.identificacao_id">
-							<option value="">--- Selecione ---</option>
-						</select>
+						<select name="identificacao" ng-model="processos_clientes.identificacao_id" class="form-control" >
+						<option value="">--- Selecione ---</option>
+   								<option data-ng-repeat="c in itensIdentificacaoCliente" value="{{c.identificacao_id}}" ng-selected="processos_clientes.identificacao_id == c.identificacao_id">{{c.identificacao_nome}}</option>
+                        </select>
 						<p ng-show="form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted" class="help-block">A identificação é obrigatória.</p>
 					</div>
 				</div>
@@ -84,9 +88,11 @@
 				<div class="form-group">
 					<label class="control-label col-md-3 col-sm-3 col-xs-12">Estado</label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<select class="form-control" name="estado" id="estado" ng-options="estado as estado.Sigla for estado in listaEstado track by estado.ID" ng-model="processos_clientes.cliente_estado">
-						
-						</select>
+
+						<select ng-model="processos_clientes.cliente_estado" name="estado" class="form-control" >
+						<option value="">--- Selecione ---</option>
+   								<option data-ng-repeat="e in listaEstado" value="{{e.Sigla}}" ng-selected="processos_clientes.cliente_estado == e.Sigla">{{e.Sigla}}</option>
+                        </select>
 					</div>
 				</div>
 

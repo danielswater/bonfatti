@@ -11,7 +11,7 @@
 
  			<div class="col-md-12 col-sm-12 col-xs-12">
 
- 				<form class="form-horizontal form-label-left" ng-submit="filtraForm(form.$valid)" ui-event="{reset: 'reset(formulario)'}" novalidate class="form-horizontal form-label-left ng-pristine ng-valid">
+ 				<form class="form-horizontal form-label-left" ng-submit="filtraCliente(form.$valid)" ui-event="{reset: 'reset(formulario)'}" novalidate class="form-horizontal form-label-left ng-pristine ng-valid">
  					<div class="row">
  						<div class="form-group">
  							<label>Selecione uma forma de pesquisa</label>
@@ -24,11 +24,12 @@
  							</select>
  						</div>
  					</div>
- 					<div class="row" ng-show="pesquisa == 1">
+ 					<div class="row" >
  						<div class="form-group" ng-class="{ 'has-error' : form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted}">
  							<label>Identificação</label>
- 							<select class="form-control" name="identificacao" required id="identificacao" ng-options="item as item.identificacao_nome for item in itensIdentificacaoCliente track by item.identificacao_id" ng-model="processos_clientes.identificacao_id">
+ 							<select name="identificacao" ng-model="processos_clientes.identificacao_id" class="form-control" >
  								<option value="">--- Selecione ---</option>
+ 								<option data-ng-repeat="c in itensIdentificacaoCliente" value="{{c.identificacao_id}}">{{c.identificacao_nome}}</option>
  							</select>
  							<p ng-show="form.identificacao.$invalid && !form.identificacao.$pristine || !form.identificacao.$valid && submitted" class="help-block">A identificação é obrigatória.</p>
  						</div>

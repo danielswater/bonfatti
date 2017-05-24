@@ -1,21 +1,18 @@
 
-app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, $stateParams, EstadoService,ProcessoService){
+app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, $timeout,$stateParams, EstadoService,ProcessoService){
 	$scope.botao_atualizar = true;
 	$scope.botao = true;
 	$scope.processos_clientes = {};
-	$scope.tabelaProcessoClientes = [];
-	$scope.itensIdentificacaoCliente = [];
+	$scope.tabelaProcessoClientes = {};
+	$scope.itensIdentificacaoCliente = {};
 	$scope.telefoneExtra = false;
 	$scope.celExtra = false;
 	$scope.labelTel = '+';
 	$scope.labelCel = '+';
 	$scope.tipos = [		
 		{label: 'Empresa', value: 'E'}, {label: 'Pessoa', value: 'P'}
-	];	
-	//$scope.processos_clientes.cliente_tipo = $scope.tipos[0]; itensIdentificacaoCliente
+	];
 	$scope.listaEstado = EstadoService.getEstados();
-	$scope.processos_clientes.cliente_estado = $scope.listaEstado[0];
-
 	console.log('state cliente', $stateParams);
 
 	$scope.reset = function(form) {
@@ -27,7 +24,7 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 
 	ProcessoService.getListaProcessoIdentificacao().then(function(data){
 		$scope.itensIdentificacaoCliente = data;
-	})
+	});	
 
 	$scope.adicionaTelefone = function(){
 		$scope.telefoneExtra = !$scope.telefoneExtra;
@@ -52,11 +49,13 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 			});
 		}
 	}
-	$scope.filtraForm = function(isValid){
+	$scope.filtraCliente = function(isValid){
 		$scope.submitted = true;
-		if(isValid){
-			
-		}
+		//if(isValid){
+			$http.post($rootScope.url+'filtra-cliente', $scope.processos_clientes).then(function(data){
+				console.log('data', data);
+			})
+		//}
 	}
 	$scope.getCliente = function(id){
 		if(id == undefined){
@@ -68,7 +67,9 @@ app.controller('ProcessosCliente', function($scope, $http, $rootScope, toaster, 
 		else{
 			$http.get($rootScope.url+'clientes/'+id).then(function(data){
 				$scope.tabelaProcessoClientes = data.data.processo_cliente;
-				$scope.processos_clientes = data.data.processo_cliente;
+				$timeout(function(){
+					$scope.processos_clientes = data.data.processo_cliente;
+				},500);				
 			})
 		}
 	}

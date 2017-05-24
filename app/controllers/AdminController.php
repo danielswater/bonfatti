@@ -594,16 +594,16 @@ class AdminController extends BaseController {
 			$cliente = new ProcessosCliente();
 			$mensagem = 'Cliente salvo com sucesso!';
 		}
-		$cliente->cliente_tipo = Input::get('cliente_tipo.value');
+		$cliente->cliente_tipo = Input::get('cliente_tipo');
 		$cliente->cliente_cgc = Input::get('cliente_cgc');
-		$cliente->identificacao_id = Input::get('identificacao_id.identificacao_id');
+		$cliente->identificacao_id = Input::get('identificacao_id');
 		$cliente->cliente_nome = Input::get('cliente_nome');
 		$cliente->cliente_endereco = Input::get('cliente_endereco');
 		$cliente->cliente_numero_end = Input::get('cliente_numero_end');
 		$cliente->cliente_complemento = Input::get('cliente_complemento');
 		$cliente->cliente_bairro = Input::get('cliente_bairro');
 		$cliente->cliente_cidade = Input::get('cliente_cidade');
-		$cliente->cliente_estado = Input::get('cliente_estado.ID');
+		$cliente->cliente_estado = Input::get('cliente_estado');
 		$cliente->cliente_cep = Input::get('cliente_cep');
 		$cliente->cliente_telefone = Input::get('cliente_telefone');
 		$cliente->cliente_mais_telefone = Input::get('cliente_mais_telefone');
@@ -637,10 +637,12 @@ class AdminController extends BaseController {
 		return Response::json(array('processo_cliente' => $cliente));
 	}
 
-	public function filtraCliente(){
+	public function postFiltraCliente(){
 		if(Input::has('identificacao_id')){
-			$cliente = DB::table('processos_clientes');
+			$identificacao_id = Input::get('identificacao_id');
+			$cliente = ProcessosCliente::where('identificacao_id', '=', $identificacao_id)->get();
 		}
+		return Response::json(array('cliente' => $cliente));
 	}
 
 	/*
