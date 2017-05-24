@@ -81,17 +81,8 @@
  						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody ng-show="tabelaProcessoClientes.length"> 				
- 					<tr ng-repeat="cliente in tabelaProcessoClientes">
- 						<td nowrap="nowrap"><a ui-sref="cliente({cliente: cliente.cliente_id, param: '0'})">{{cliente.cliente_nome}}</a></td>
- 						<td ng-if="cliente.cliente_tipo == 'E'"><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Empresa</a></td>
- 						<td ng-if="cliente.cliente_tipo == 'P'"><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Pessoa</a></td>
- 						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.identificacao_nome}}</a></td>
- 						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.cliente_cgc}}</a></td>
- 						<td></td>
- 					</tr>
- 				</tbody>
- 				<!-- <tbody ng-show="tabelaProcessoClientes.length > 1">
+
+ 				<tbody >
  					<tr ng-repeat="cliente in tabelaProcessoClientes.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
  						<td nowrap="nowrap"><a ui-sref="cliente({cliente: cliente.cliente_id, param: '0'})">{{cliente.cliente_nome}}</a></td>
  						<td ng-if="cliente.cliente_tipo == 'E'""><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})" >Empresa</a></td>
@@ -100,9 +91,9 @@
  						<td><a ui-sref="cliente({cliente: cliente.cliente_id, param : '0'})">{{cliente.cliente_cgc}}</a></td>
  						<td></td>
  					</tr>
- 				</tbody> -->
+ 				</tbody>
  			</table>
- 			<div class="text-center"  ng-show="tabelaProcessoClientes.length > 1">
+ 			<div class="text-center"  ng-show="tabelaProcessoClientes.length > itemsPerPage">
  				<pagination first-text="&laquo;" last-text="&raquo;" boundary-links="true" max-size="maxSize" rotate="false" total-items="totalItems" ng-model="currentPage" previous-text="Anterior" next-text="Próximo" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
  			</div>
  		</div>

@@ -641,6 +641,11 @@ class AdminController extends BaseController {
 		if(Input::has('identificacao_id')){
 			$identificacao_id = Input::get('identificacao_id');
 			$cliente = ProcessosCliente::where('identificacao_id', '=', $identificacao_id)->get();
+			foreach ($cliente as $key => $value) {
+				$cli = DB::table('processos_identificacao')->where('identificacao_id', $identificacao_id)->pluck('identificacao_nome');
+				$cliente[$key]['identificacao_nome'] = $cli;
+			}	
+
 		}
 		return Response::json(array('processo_cliente' => $cliente));
 	}
