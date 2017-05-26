@@ -91,7 +91,7 @@
 
 						<select ng-model="processos_clientes.cliente_estado" name="estado" class="form-control" >
 						<option value="">--- Selecione ---</option>
-   								<option data-ng-repeat="e in listaEstado" value="{{e.Sigla}}" ng-selected="processos_clientes.cliente_estado == e.Sigla">{{e.Sigla}}</option>
+   								<option data-ng-repeat="e in listaEstado" value="{{e.ID}}" ng-selected="processos_clientes.cliente_estado == e.ID">{{e.Sigla}}</option>
                         </select>
 					</div>
 				</div>

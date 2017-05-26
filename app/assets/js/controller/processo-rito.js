@@ -28,12 +28,32 @@ app.controller('ProcessosRito', function($scope, $http, $rootScope, toaster, $st
 			})
 		}
 	}
-	$scope.getProcessoRito = function(id){
-
-	}
-	$scope.filtraProcessoRito = function(isValid){
+	$scope.filtraProcessoRito = function(valido){
 		$scope.submitted = true;
+		if(valido){
+			$http.post($rootScope.url+'filtra-rito', $scope.processo_rito).then(function(data){
+				$scope.tabelaRitos = data.data.processo_rito;
+			})
+		}
 	}
+	$scope.getProcessoRito = function(id){
+		if(id == null){
+			$http.get($rootScope.url+'rito').then(function(data){
+				$scope.tabelaRitos = data.data.processo_rito;
+				$scope.paginacao($scope.tabelaRitos);
+			})
+		}
+		else{
+			$http.get($rootScope.url+'rito/'+id).then(function(data){
+				//$scope.tabelaRitos = data.data.processo_rito;
+				$scope.processo_rito = data.data.processo_rito;
+			})
+		}
+	}
+	if($stateParams.param == 0){
+		$scope.getProcessoRito($stateParams.rito);
+	}
+	
 
 	$scope.setItemsPerPage = function(num) {
 		$scope.itemsPerPage = num;

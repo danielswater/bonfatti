@@ -696,8 +696,22 @@ class AdminController extends BaseController {
 		}
 	}
 
-	public function getRito(){
+	public function getRito($id = null){
+		if($id == null){
+			$rito = ProcessosRito::orderBy('rito_id', 'DESC')->get();
+		}
+		else{
+			$rito = ProcessosRito::find($id);
+		}
+		return Response::json(array('processo_rito' => $rito));
+	}
 
+	public function postFiltraRito(){
+		if(Input::has('rito_nome')){
+			$nome = Input::get('rito_nome');
+			$rito = ProcessosRito::where('rito_nome', 'LIKE', "%$nome%")->get();
+		}
+		return Response::json(array('processo_rito' => $rito));
 	}
 
 	/*

@@ -13,7 +13,7 @@
 					<label class="control-label col-md-3 col-sm-3 col-xs-12" >Nome <span class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<input type="text" name="nome" ng-model="processo_identificacao.identificacao_nome" required class="form-control col-md-7 col-xs-12">
+						<input type="text" name="nome" ng-model="processo_rito.rito_nome" required class="form-control col-md-7 col-xs-12">
 						<p ng-show="form.nome.$invalid && !form.nome.$pristine || !form.nome.$valid && submitted" class="help-block">O nome é obrigatório.</p>
 					</div>
 				</div>				
@@ -35,7 +35,13 @@
  						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody >
+ 				<tbody ng-show="tabelaRitos.length == 1">
+ 					<tr ng-repeat="rito in tabelaRitos">
+ 						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})">{{rito.rito_nome}}</a></td>
+ 						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})"></a></td>
+ 					</tr>
+ 				</tbody>
+ 				<tbody ng-show="tabelaRitos.length > 1">
  					<tr ng-repeat="rito in tabelaRitos.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"">
  						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})">{{rito.rito_nome}}</a></td>
  						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})"></a></td>
