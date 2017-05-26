@@ -33,6 +33,7 @@ app.controller('ProcessosRito', function($scope, $http, $rootScope, toaster, $st
 		if(valido){
 			$http.post($rootScope.url+'filtra-rito', $scope.processo_rito).then(function(data){
 				$scope.tabelaRitos = data.data.processo_rito;
+				$scope.paginacao($scope.tabelaRitos);
 			})
 		}
 	}

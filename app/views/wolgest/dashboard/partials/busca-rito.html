@@ -35,13 +35,8 @@
  						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody ng-show="tabelaRitos.length == 1">
- 					<tr ng-repeat="rito in tabelaRitos">
- 						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})">{{rito.rito_nome}}</a></td>
- 						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})"></a></td>
- 					</tr>
- 				</tbody>
- 				<tbody ng-show="tabelaRitos.length > 1">
+ 				
+ 				<tbody>
  					<tr ng-repeat="rito in tabelaRitos.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"">
  						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})">{{rito.rito_nome}}</a></td>
  						<td><a ui-sref="rito({rito: rito.rito_id, param : '0'})"></a></td>
