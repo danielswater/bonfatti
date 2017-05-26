@@ -37,6 +37,7 @@ app.controller('LinksUteis', function($scope, $http, $rootScope, toaster, $state
 			//$scope.tabelaLink = [];
 			$http.post($rootScope.url+'filtra-link', $scope.links).then(function(data){				
 				$scope.tabelaLink = data.data.links;
+				$scope.paginacao($scope.tabelaLink);
 			})
 		}
 	}

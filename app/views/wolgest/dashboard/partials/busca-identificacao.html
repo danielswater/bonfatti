@@ -35,13 +35,8 @@
  						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody ng-show="tabelaProcIdentificacao.length == 1">
- 					<tr ng-repeat="identificacao in tabelaProcIdentificacao track by $index">
- 						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})">{{identificacao.identificacao_nome}}</a></td>
- 						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})"></a></td>
- 					</tr>
- 				</tbody>
- 				<tbody ng-show="tabelaProcIdentificacao.length > 1">
+
+ 				<tbody >
  					<tr ng-repeat="identificacao in tabelaProcIdentificacao.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"">
  						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})">{{identificacao.identificacao_nome}}</a></td>
  						<td><a ui-sref="identificacao({identificacao: identificacao.identificacao_id, param : '0'})"></a></td>

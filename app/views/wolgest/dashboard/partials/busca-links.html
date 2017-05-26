@@ -36,14 +36,7 @@
  						<th>Excluir</th>
  					</tr>
  				</thead>
- 				<tbody ng-show="tabelaLink.length == 1">
- 					<tr ng-repeat="links in tabelaLink">
- 						<td><a ui-sref="links({link: links.link_id, param : '0'})">{{links.link_nome}}</a></td>
- 						<td><a ui-sref="links({link: links.link_id, param : '0'})">{{links.link_url}}</a></td>
- 						<td><a ui-sref="links({link: links.link_id, param : '0'})"></a></td>
- 					</tr>
- 				</tbody>
- 				<tbody ng-show="tabelaLink.length > 1">
+ 				<tbody>
  					<tr ng-repeat="links in tabelaLink.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"">
  						<td><a ui-sref="links({link: links.link_id, param : '0'})">{{links.link_nome}}</a></td>
  						<td><a ui-sref="links({link: links.link_id, param : '0'})">{{links.link_url}}</a></td>

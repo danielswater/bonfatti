@@ -48,6 +48,7 @@ app.controller('ProcessoIdentificacao', function($scope, $http, UsuarioService, 
 		if(valid){
 			$http.post($rootScope.url+'filtra-identificacao', $scope.processo_identificacao).then(function(data){				
 				$scope.tabelaProcIdentificacao = data.data.processo_identificacao;
+				$scope.paginacao($scope.tabelaProcIdentificacao);
 			})
 		}
 	}
