@@ -160,16 +160,29 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			}
 		}
 	})
-	.state('busca-rito', {
-		url: '/busca-rito',
+	.state('cadastro', {
+		url: '/cadastro',
 		params: {
 			param: 0,
 			rito: 0
 		},
 		views: {
 			'content@' : {
-				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-rito.html',
-				controller: 'ProcessosRito'
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/cadastro.html',
+				controller: 'ProcessosCadastro'
+			}
+		}
+	})
+	.state('busca-cadastro', {
+		url: '/busca-cadastro',
+		params: {
+			param: 0,
+			rito: 0
+		},
+		views: {
+			'content@' : {
+				templateUrl: '/bonfatti/app/views/wolgest/dashboard/partials/busca-cadastro.html',
+				controller: 'ProcessosCadastro'
 			}
 		}
 	})

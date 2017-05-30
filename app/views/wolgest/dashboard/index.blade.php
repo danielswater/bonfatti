@@ -129,9 +129,9 @@
 											</li>
 											<li ><a>Cadastro<span class="fa fa-chevron-down"></span></a>
 												<ul class="nav child_menu">
-													<li ><a ui-sref="">Cadastrar</a>
+													<li ><a ui-sref="cadastro({param: '1'})">Cadastrar</a>
 													</li>
-													<li ><a ui-sref="">Procurar</a>
+													<li ><a ui-sref="busca-cadastro({param: '2'})">Procurar</a>
 													</li>
 												</ul>
 											</li>
